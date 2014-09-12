@@ -5,10 +5,10 @@ module ActiveRecord
   module Associations
     module ClassMethods
       def count_preloadable(name, scope = nil, options = {}, &extension)
-        name = :"#{name}_count"
+        name_with_count = :"#{name}_count"
 
-        reflection = Builder::CountPreloadable.build(self, name, scope, options, &extension)
-        Reflection.add_reflection(self, name, reflection)
+        reflection = Builder::CountPreloadable.build(self, name_with_count, scope, options, &extension)
+        Reflection.add_reflection(self, name_with_count, reflection)
       end
     end
   end
@@ -38,6 +38,25 @@ module ActiveRecord
         end
       end
       alias_method_chain :association_class, :count_preloadable
+    end
+  end
+end
+
+module ActiveRecord
+  module Associations
+    class Preloader
+      private
+
+      def preloader_for_with_count_preloadable(reflection, owners, rhs_klass)
+        preloader = preloader_for_without_count_preloadable(reflection, owners, rhs_klass)
+        return preloader if preloader
+
+        case reflection.macro
+        when :count_preloadable
+          BelongsTo
+        end
+      end
+      alias_method_chain :preloader_for, :count_preloadable
     end
   end
 end
