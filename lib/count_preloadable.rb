@@ -1,6 +1,4 @@
 require "active_record/associations/builder/count_preloadable"
-require "active_record/associations/count_preloadable_association"
-
 module ActiveRecord
   module Associations
     module ClassMethods
@@ -14,6 +12,7 @@ module ActiveRecord
   end
 end
 
+require "active_record/associations/count_preloadable_association"
 module ActiveRecord
   module Reflection
     class << self
@@ -42,6 +41,7 @@ module ActiveRecord
   end
 end
 
+require "active_record/associations/preloader/count_preloadable"
 module ActiveRecord
   module Associations
     class Preloader
@@ -53,7 +53,7 @@ module ActiveRecord
 
         case reflection.macro
         when :count_preloadable
-          BelongsTo
+          CountPreloadable
         end
       end
       alias_method_chain :preloader_for, :count_preloadable
