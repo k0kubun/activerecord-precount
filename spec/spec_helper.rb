@@ -26,3 +26,14 @@ ActiveRecord::Schema.define do
     t.column :updated_at, :datetime
   end
 end
+
+RSpec.configure do |config|
+  ALL_MODELS = [
+    Tweet,
+    Reply,
+  ].freeze
+
+  config.after do
+    ALL_MODELS.each(&:delete_all)
+  end
+end

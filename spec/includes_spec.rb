@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe "#preload" do
+describe "#includes" do
   describe "builtin associations" do
     let(:replies_count) { 3 }
     let!(:tweet) { FactoryGirl.create(:tweet) }
@@ -12,7 +12,7 @@ describe "#preload" do
 
     context "given has_many association" do
       it "works as usual" do
-        tweet = Tweet.preload(:replies).first
+        tweet = Tweet.includes(:replies).first
         expect(tweet.replies.count).to eq(replies_count)
       end
     end
@@ -21,8 +21,8 @@ describe "#preload" do
       let!(:reply) { FactoryGirl.create(:reply, tweet: tweet) }
 
       it "works as usual" do
-        preloaded_reply = Reply.preload(:tweet).find(reply.id)
-        expect(preloaded_reply.tweet).to eq(tweet)
+        included_reply = Reply.includes(:tweet).find(reply.id)
+        expect(included_reply.tweet).to eq(tweet)
       end
     end
   end
@@ -45,13 +45,13 @@ describe "#preload" do
 
     it "does not execute N+1 queries by preload" do
       expect_query_counts(1 + tweets_count) { Tweet.all.map(&:replies_count) }
-      expect_query_counts(2) { Tweet.all.preload(:replies_count).map(&:replies_count) }
+      expect_query_counts(2) { Tweet.all.includes(:replies_count).map(&:replies_count) }
     end
 
     it "counts properly" do
       expected = Tweet.all.map { |t| t.replies.count }
       expect(Tweet.all.map(&:replies_count)).to eq(expected)
-      expect(Tweet.all.preload(:replies_count).map(&:replies_count)).to eq(expected)
+      expect(Tweet.all.includes(:replies_count).map(&:replies_count)).to eq(expected)
     end
   end
 end
