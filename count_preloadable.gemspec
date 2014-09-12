@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Takashi Kokubun"]
   spec.email         = ["takashikkbn@gmail.com"]
   spec.summary       = %q{N+1 count query killer for ActiveRecord}
-  spec.description   = %q{count_preloadable provides a way to preload counts of ActiveRecord's associated records}
+  spec.description   = %q{N+1 count query killer for ActiveRecord}
   spec.homepage      = "https://github.com/k0kubun/count_preloadable"
   spec.license       = "MIT"
 
