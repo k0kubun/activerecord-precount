@@ -60,3 +60,28 @@ module ActiveRecord
     end
   end
 end
+
+module ActiveRecord
+  # This imitates EagerLoadPolymorphicError
+  class EagerLoadCountPreloadableError < ActiveRecordError
+    def initialize(reflection)
+      super("Cannot eagerly load the count_preloadable association #{reflection.name.inspect}")
+    end
+  end
+
+  module Associations
+    class JoinDependency
+      def build_with_count_preloadable(associations, base_klass)
+        associations.map do |name, right|
+          reflection = find_reflection base_klass, name
+          if reflection.macro == :count_preloadable
+            raise EagerLoadCountPreloadableError.new(reflection)
+          end
+        end
+
+        build_without_count_preloadable(associations, base_klass)
+      end
+      alias_method_chain :build, :count_preloadable
+    end
+  end
+end

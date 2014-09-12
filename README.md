@@ -61,11 +61,6 @@ Since it is association, you can preload nested `count_preloadable` association.
 end
 ```
 
-## Pending features
-
-- Eager loading by `eager_load`, or referenced `includes`
- - I'm sorry but it is not implemented yet ...
-
 ## Contributing
 
 1. Fork it ( https://github.com/k0kubun/count_preloadable/fork )
