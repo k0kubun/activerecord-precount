@@ -1,6 +1,7 @@
 require "pathname"
 require "pry"
 require "active_record"
+require "count_preloadable"
 
 spec_dir = Pathname.new(File.dirname(__FILE__))
 Dir[File.join(spec_dir, "models/*.rb")].each { |f| require f }
