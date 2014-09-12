@@ -1,13 +1,14 @@
-# count\_preloadable
+# CountPreloadable
 
 N+1 count query killer for ActiveRecord  
-count\_preloadable provides a way to cache counts of associated records by eager loading
+CountPreloadable allows you to cache count of associated records by eager loading
 
-## Why count\_preloadable?
+## Why CountPreloadable?
 Rails provides a way to resolve N+1 count query, which is [belongs\_to's counter\_cache option](http://guides.rubyonrails.org/association_basics.html#belongs-to-association-reference).  
 It requires a column to cache the count. But adding a column just for count cache is overkill.  
   
-So this plugin enables you to preload counts in the same way as `has_many` and `belongs_to`.
+Thus this plugin enables you to preload counts in the same way as `has_many` and `belongs_to`.  
+`count_preloadable` is an eager-loadable ActiveRecord's association.
 
 ## Installation
 
@@ -30,7 +31,7 @@ end
 ```
 
 The option creates an additional association whose name is `replies_count`.  
-Its association type is not an ordinary one (i.e. `:has_many`, `:belongs_to` ...) but `:count_preloadable`.  
+Its association type is not an ordinary one (i.e. `has_many`, `belongs_to`) but `count_preloadable`.
 
 ### Preload the association
 This association works well by default.
@@ -42,7 +43,7 @@ This association works well by default.
 end
 ```
 
-You can eager load `:count_preloadable` association by `includes` or `preload`.
+You can eager load `count_preloadable` association by `includes` or `preload`.
 
 ```rb
 @tweets = Tweet.preload(:replies_count)
@@ -51,7 +52,7 @@ You can eager load `:count_preloadable` association by `includes` or `preload`.
 end
 ```
 
-Since it is association, you can preload nested `:count_preloadable` association.
+Since it is association, you can preload nested `count_preloadable` association.
 
 ```rb
 @favorites = Favorite.preload(tweet: :replies_count)
@@ -59,6 +60,11 @@ Since it is association, you can preload nested `:count_preloadable` association
   p favorite.tweet.replies_count # this line doesn't execute an additional query
 end
 ```
+
+## Pending features
+
+- Eager loading by `eager_load`, or referenced `includes`
+ - I'm sorry but it is not implemented yet ...
 
 ## Contributing
 
