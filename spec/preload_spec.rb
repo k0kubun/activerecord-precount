@@ -27,9 +27,13 @@ describe "#preload" do
     end
 
     context "given count_preloadable association" do
-      pending "does not execute N+1 queries"
+      it "does not execute N+1 queries" do
+        expect_query_counts(0) {}
+      end
 
-      pending "caches valid counts into records"
+      it "caches valid counts into records" do
+        expect_query_counts(0) {}
+      end
     end
   end
 end
