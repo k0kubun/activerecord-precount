@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = CountPreloadable::VERSION
   spec.authors       = ["Takashi Kokubun"]
   spec.email         = ["takashikkbn@gmail.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
-  spec.homepage      = ""
+  spec.summary       = %q{N+1 count query killer for ActiveRecord}
+  spec.description   = %q{count_preloadable provides a way to preload counts of ActiveRecord's associated records}
+  spec.homepage      = "https://github.com/k0kubun/count_preloadable"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
@@ -18,6 +18,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "bundler", "~> 1.6"
+  spec.required_ruby_version = ">= 1.9.2"
+  spec.add_runtime_dependency "activerecord", ">= 3.0"
   spec.add_development_dependency "rake", "~> 10.0"
 end
