@@ -4,11 +4,11 @@ N+1 count query killer for ActiveRecord
 CountPreloadable allows you to cache count of associated records by eager loading
 
 ## Why CountPreloadable?
-Rails provides a way to resolve N+1 count query, which is [belongs\_to's counter\_cache option](http://guides.rubyonrails.org/association_basics.html#belongs-to-association-reference).  
+Rails provides a way to resolve N+1 count query, which is [belongs\_to's counter\_cache option](http://guides.rubyonrails.org/association_basics.html#counter-cache).  
 It requires a column to cache the count. But adding a column just for count cache is overkill.  
   
 Thus this plugin enables you to preload counts in the same way as `has_many` and `belongs_to`.  
-`count_preloadable` is an eager-loadable ActiveRecord's association.
+`count_preloadable` is an ActiveRecord's association, which is preloadable by `preload` or `includes`.
 
 ## Installation
 
@@ -26,7 +26,7 @@ First, call `count_preloadable` with an association whose count you want to prel
 ```rb
 class Tweet
   has_many :replies
-  count_preloadable :replies
+  count_preloadable :replies # defines association named :replies_count
 end
 ```
 
@@ -43,7 +43,7 @@ This association works well by default.
 end
 ```
 
-You can eager load `count_preloadable` association by `includes` or `preload`.
+You can eagerly load `count_preloadable` association by `includes` or `preload`.
 
 ```rb
 @tweets = Tweet.preload(:replies_count)
