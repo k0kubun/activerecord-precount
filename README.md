@@ -19,12 +19,13 @@ gem 'count_preloadable'
 
 ## Usage
 
-### Add count\_preloadable: true
-First, add `count_preloadable: true` option to `has_many`.
+### Add count\_preloadable scope
+First, call `count_preloadable` with an association whose count you want to preload
 
 ```rb
 class Tweet
-  has_many :replies, count_preloadable: true
+  has_many :replies
+  count_preloadable :replies
 end
 ```
 
