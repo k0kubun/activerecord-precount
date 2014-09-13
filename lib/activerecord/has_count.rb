@@ -1,6 +1,6 @@
 require "activerecord/has_count/version"
 
-module Activerecord
+module ActiveRecord
   module HasCount
     # Your code goes here...
   end
