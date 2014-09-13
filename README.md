@@ -1,4 +1,4 @@
-# ActiveRecord::HasCount
+# ActiveRecord::HasCount [![Build Status](https://travis-ci.org/k0kubun/activerecord-has_count.png?branch=master)](https://travis-ci.org/k0kubun/activerecord-has_count)
 
 N+1 count query killer for ActiveRecord  
 ActiveRecord::HasCount allows you to cache count of associated records by eager loading
