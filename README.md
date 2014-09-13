@@ -20,7 +20,7 @@ gem 'activerecord-has_count'
 
 ## Usage
 
-### Add count\_preloadable scope
+### Add has\_count scope
 First, call `has_count` with an association whose count you want to preload
 
 ```rb
