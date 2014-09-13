@@ -14,7 +14,7 @@ module ActiveRecord
     end
 
     class HasCount < SingularAssociation
-      # Not preloaded behaviour of count_preloadable association
+      # Not preloaded behaviour of has_count association
       # When this method is called, it will be N+1 query
       def load_target
         count_target = name_without_count.to_sym
