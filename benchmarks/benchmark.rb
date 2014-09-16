@@ -22,6 +22,7 @@ ActiveRecord::Schema.define do
     t.column :created_at, :datetime
     t.column :updated_at, :datetime
   end
+  add_index :replies, [:tweet_id], name: "index_replies_on_tweet_id", using: :btree
 end
 
 [Tweet, Reply].each(&:delete_all)
