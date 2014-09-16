@@ -1,15 +1,15 @@
+require "active_record"
+require "active_support/lazy_load_hooks"
+
 require "active_record/associations/has_count"
 require "active_record/associations/builder/has_count"
 require "active_record/associations/preloader/has_count"
 require "active_record/associations/join_dependency/has_count"
 require "active_record/reflection/has_count"
 
-module ActiveRecord
-  module Associations
-    module ClassMethods
-      include HasCount
-    end
-  end
+ActiveSupport.on_load(:active_record) do
+  require "activerecord-has_count/model"
+  ActiveRecord::Base.send(:include, ActiveRecord::HasCount::Model)
 end
 
 module ActiveRecord

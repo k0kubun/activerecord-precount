@@ -1,7 +1,7 @@
 require "benchmark"
 require "active_record"
-require "activerecord-has_count"
 require "activerecord-import"
+require "activerecord-has_count"
 
 spec_dir = File.expand_path("../../spec", __FILE__)
 Dir[File.join(spec_dir, "models/*.rb")].each { |f| require f }

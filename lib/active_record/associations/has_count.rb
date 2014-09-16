@@ -1,18 +1,5 @@
 module ActiveRecord
   module Associations
-    module ClassMethods
-      module HasCount
-        private
-
-        def has_count(name, scope = nil, options = {}, &extension)
-          name_with_count = :"#{name}_count"
-
-          reflection = Builder::HasCount.build(self, name_with_count, scope, options, &extension)
-          Reflection.add_reflection(self, name_with_count, reflection)
-        end
-      end
-    end
-
     class HasCount < SingularAssociation
       # Not preloaded behaviour of has_count association
       # When this method is called, it will be N+1 query
