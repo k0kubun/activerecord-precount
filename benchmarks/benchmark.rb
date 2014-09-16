@@ -52,6 +52,12 @@ Benchmark.bmbm do |bench|
     tweets.each { |t| t.replies_count }
   end
 
+  bench.report("preloaded has_count") do
+    tweets = Tweet.preload(:replies_count).first(TWEET_COUNT)
+
+    tweets.each { |t| t.replies_count }
+  end
+
   bench.report("size of preloaded association") do
     tweets = Tweet.preload(:replies).first(TWEET_COUNT)
 
