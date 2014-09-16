@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 gem_dir = File.expand_path("../../", __FILE__)
 
 gem "activerecord", "~> 4.0"
-gem "activerecord-import"
 gem "activerecord-has_count", path: gem_dir
 gem "pry"
 gem "mysql2"
