@@ -53,7 +53,7 @@ TWEET_COUNT.times do
 end
 
 Benchmark.bm do |bench|
-  bench.report("counter_cache         ") do
+  bench.report("counter_cache      ") do
     tweets = Tweet.first(TWEET_COUNT)
 
     tweets.each do |t|
@@ -61,7 +61,7 @@ Benchmark.bm do |bench|
     end
   end
 
-  bench.report("COUNT each association") do
+  bench.report("N+1 COUNT query    ") do
     tweets = Tweet.first(TWEET_COUNT)
 
     tweets.each do |t|
@@ -69,7 +69,7 @@ Benchmark.bm do |bench|
     end
   end
 
-  bench.report("LEFT JOIN             ") do
+  bench.report("LEFT JOIN          ") do
     tweets = Tweet.joins('LEFT JOIN replies ON tweets.id = replies.tweet_id').
       select('tweets.*, COUNT(replies.id) AS replies_count').
       group('tweets.id').first(TWEET_COUNT)
@@ -79,7 +79,7 @@ Benchmark.bm do |bench|
     end
   end
 
-  bench.report("preloaded has_count   ") do
+  bench.report("preloaded has_count") do
     tweets = Tweet.preload(:replies_count).first(TWEET_COUNT)
 
     tweets.each do |t|
@@ -87,7 +87,7 @@ Benchmark.bm do |bench|
     end
   end
 
-  bench.report("preloaded has_many    ") do
+  bench.report("preloaded has_many ") do
     tweets = Tweet.preload(:replies).first(TWEET_COUNT)
 
     tweets.each do |t|
