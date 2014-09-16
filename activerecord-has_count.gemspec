@@ -1,6 +1,6 @@
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'active_record/has_count/version'
+require 'activerecord-has_count/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "activerecord-has_count"
