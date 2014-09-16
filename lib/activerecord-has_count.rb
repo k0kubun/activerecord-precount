@@ -21,6 +21,7 @@ module ActiveRecord
 
     class AssociationReflection
       include HasCount
+      alias_method_chain :klass, :has_count
       alias_method_chain :association_class, :has_count
     end
   end

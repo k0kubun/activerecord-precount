@@ -1,4 +1,5 @@
 require "benchmark"
+require "pry"
 require "active_record"
 require "activerecord-import"
 require "activerecord-has_count"
