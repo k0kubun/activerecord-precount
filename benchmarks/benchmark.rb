@@ -40,7 +40,7 @@ TWEET_COUNT.times do
 end
 
 Benchmark.bmbm do |bench|
-  bench.report("COUNT association") do
+  bench.report("COUNT each association") do
     tweets = Tweet.first(TWEET_COUNT)
 
     tweets.each { |t| t.replies.count }
