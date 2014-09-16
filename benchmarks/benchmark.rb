@@ -11,18 +11,28 @@ database_yml = File.join(spec_dir, "database.yml")
 ActiveRecord::Base.configurations["bench"] = YAML.load_file(database_yml)["bench"]
 ActiveRecord::Base.establish_connection :bench
 
-ActiveRecord::Schema.define do
-  create_table :tweets, force: true do |t|
-    t.column :created_at, :datetime
-    t.column :updated_at, :datetime
-  end
+def silently_execute(&block)
+  stdout_old = $stdout.dup
+  $stdout.reopen("/tmp/bench")
+  block.call
+  $stdout.flush
+  $stdout.reopen stdout_old
+end
 
-  create_table :replies, force: true do |t|
-    t.column :tweet_id, :integer
-    t.column :created_at, :datetime
-    t.column :updated_at, :datetime
+silently_execute do
+  ActiveRecord::Schema.define do
+    create_table :tweets, force: true do |t|
+      t.column :created_at, :datetime
+      t.column :updated_at, :datetime
+    end
+
+    create_table :replies, force: true do |t|
+      t.column :tweet_id, :integer
+      t.column :created_at, :datetime
+      t.column :updated_at, :datetime
+    end
+    add_index :replies, [:tweet_id], name: "index_replies_on_tweet_id", using: :btree
   end
-  add_index :replies, [:tweet_id], name: "index_replies_on_tweet_id", using: :btree
 end
 
 [Tweet, Reply].each(&:delete_all)
