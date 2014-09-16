@@ -3,3 +3,11 @@ test:
   database: test.sqlite3
   pool: 5
   timeout: 5000
+bench:
+  adapter: mysql2
+  encoding: utf8
+  database: bench
+  pool: 5
+  username: root
+  password:
+  socket: /tmp/mysql.sock
