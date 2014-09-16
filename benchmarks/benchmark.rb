@@ -39,14 +39,14 @@ TWEET_COUNT.times do
   Reply.import(replies, validate: false)
 end
 
-Benchmark.bmbm do |bench|
+Benchmark.bm do |bench|
   bench.report("COUNT each association") do
     tweets = Tweet.first(TWEET_COUNT)
 
     tweets.each { |t| t.replies.count }
   end
 
-  bench.report("LEFT JOIN") do
+  bench.report("LEFT JOIN             ") do
     tweets = Tweet.joins('LEFT JOIN replies ON tweets.id = replies.tweet_id').
       select('tweets.*, COUNT(replies.id) AS replies_count').
       group('tweets.id').first(TWEET_COUNT)
@@ -54,13 +54,13 @@ Benchmark.bmbm do |bench|
     tweets.each { |t| t.replies_count }
   end
 
-  bench.report("preloaded has_count") do
+  bench.report("preloaded has_count   ") do
     tweets = Tweet.preload(:replies_count).first(TWEET_COUNT)
 
     tweets.each { |t| t.replies_count }
   end
 
-  bench.report("size of preloaded association") do
+  bench.report("preloaded has_many    ") do
     tweets = Tweet.preload(:replies).first(TWEET_COUNT)
 
     tweets.each { |t| t.replies.size }
