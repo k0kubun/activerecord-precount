@@ -15,7 +15,7 @@ ActiveRecord::Base.establish_connection :test
 
 ActiveRecord::Schema.define do
   create_table :tweets, force: true do |t|
-    t.column :user_id, :integer
+    t.column :replies_count_cache, :integer
     t.column :created_at, :datetime
     t.column :updated_at, :datetime
   end
