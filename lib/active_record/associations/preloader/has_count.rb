@@ -20,6 +20,21 @@ module ActiveRecord
             association.target = count
           end
         end
+
+        def load_slices(slices)
+          @preloaded_records = slices.flat_map { |slice|
+            records_for(slice)
+          }
+
+          @preloaded_records.map { |record|
+            key = record
+            [record, key]
+          }
+        end
+
+        def query_scope(ids)
+          scope.where(association_key.in(ids)).pluck(association_key_name)
+        end
       end
 
       private
