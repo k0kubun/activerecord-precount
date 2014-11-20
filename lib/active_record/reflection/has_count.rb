@@ -16,7 +16,7 @@ module ActiveRecord
         def klass_with_has_count
           case macro
           when :has_count
-            @klass ||= active_record.send(:compute_type, name_without_count.singularize.classify)
+            @klass ||= active_record.send(:compute_type, options[:class_name] || name_without_count.singularize.classify)
           else
             klass_without_has_count
           end
