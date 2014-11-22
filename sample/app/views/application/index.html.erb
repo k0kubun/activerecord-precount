@@ -1,0 +1,29 @@
+<table border="1">
+  <thead>
+    <tr>
+      <th>
+        tweet_id
+      </th>
+      <th>
+        replies_count
+      </th>
+      <th>
+        favorites_count
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tweets.each do |tweet| %>
+      <tr>
+        <td>
+          <%= tweet.id %>
+        </td>
+        <td>
+          <%= tweet.replies.count %>
+        </td>
+        <td>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
