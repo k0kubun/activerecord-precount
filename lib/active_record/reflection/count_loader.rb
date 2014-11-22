@@ -1,24 +1,24 @@
 module ActiveRecord
   module Reflection
-    module HasCount
-      def create_with_has_count(macro, name, scope, options, ar)
+    module CountLoader
+      def create_with_count_loader(macro, name, scope, options, ar)
         case macro
-        when :has_count
+        when :count_loader
           AssociationReflection.new(macro, name, scope, options, ar)
         else
-          create_without_has_count(macro, name, scope, options, ar)
+          create_without_count_loader(macro, name, scope, options, ar)
         end
       end
     end
 
     class AssociationReflection
-      module HasCount
-        def klass_with_has_count
+      module CountLoader
+        def klass_with_count_loader
           case macro
-          when :has_count
+          when :count_loader
             @klass ||= active_record.send(:compute_type, options[:class_name] || name_without_count.singularize.classify)
           else
-            klass_without_has_count
+            klass_without_count_loader
           end
         end
 
@@ -26,12 +26,12 @@ module ActiveRecord
           name.to_s.sub(/_count$/, "")
         end
 
-        def association_class_with_has_count
+        def association_class_with_count_loader
           case macro
-          when :has_count
-            ActiveRecord::Associations::HasCount
+          when :count_loader
+            ActiveRecord::Associations::CountLoader
           else
-            association_class_without_has_count
+            association_class_without_count_loader
           end
         end
       end

@@ -1,5 +1,5 @@
 module ActiveRecord
-  module HasCount
+  module CountLoader
     module Model
       def self.included(model)
         model.singleton_class.class_eval do
@@ -10,10 +10,10 @@ module ActiveRecord
       module ClassMethods
         private
 
-        def has_count(name, scope = nil, options = {}, &extension)
+        def count_loader(name, scope = nil, options = {}, &extension)
           name_with_count = :"#{name}_count"
 
-          reflection = ActiveRecord::Associations::Builder::HasCount.
+          reflection = ActiveRecord::Associations::Builder::CountLoader.
             build(self, name_with_count, scope, options, &extension)
           ActiveRecord::Reflection.add_reflection(self, name_with_count, reflection)
         end

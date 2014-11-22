@@ -8,4 +8,4 @@ default: &default
 
 development:
   <<: *default
-  database: activerecord_has_count_development
+  database: activerecord_count_loader_development

@@ -1,7 +1,7 @@
 module ActiveRecord::Associations::Builder
-  class HasCount < SingularAssociation
+  class CountLoader < SingularAssociation
     def macro
-      :has_count
+      :count_loader
     end
 
     def valid_options

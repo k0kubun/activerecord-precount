@@ -1,7 +1,7 @@
 module ActiveRecord
   module Associations
     class Preloader
-      class HasCount < SingularAssociation
+      class CountLoader < SingularAssociation
         def association_key_name
           reflection.foreign_key
         end
@@ -39,16 +39,16 @@ module ActiveRecord
 
       private
 
-      def preloader_for_with_has_count(reflection, owners, rhs_klass)
-        preloader = preloader_for_without_has_count(reflection, owners, rhs_klass)
+      def preloader_for_with_count_loader(reflection, owners, rhs_klass)
+        preloader = preloader_for_without_count_loader(reflection, owners, rhs_klass)
         return preloader if preloader
 
         case reflection.macro
-        when :has_count
-          HasCount
+        when :count_loader
+          CountLoader
         end
       end
-      alias_method_chain :preloader_for, :has_count
+      alias_method_chain :preloader_for, :count_loader
     end
   end
 end
