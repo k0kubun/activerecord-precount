@@ -1,7 +1,7 @@
 # ActiveRecord::CountLoader
 
-N+1 count query killer for ActiveRecord  
-ActiveRecord::CountLoader allows you to cache count of associated records by eager loading
+N+1 count query killer for ActiveRecord.  
+ActiveRecord::CountLoader allows you to cache count of associated records by eager loading.
 
 ## Why ActiveRecord::CountLoader?
 Rails provides a way to resolve N+1 count query, which is [belongs\_to's counter\_cache option](http://guides.rubyonrails.org/association_basics.html#counter-cache).  
@@ -24,10 +24,10 @@ gem 'activerecord-count_loader'
 First, enable your has\_many association's count\_loader option.
 
 ```diff
-class Tweet
+ class Tweet
 -  has_many :favorites
 +  has_many :favorites, count_loader: true
-end
+ end
 ```
 
 The option defines an additional association whose name is `favorites_count`.  
