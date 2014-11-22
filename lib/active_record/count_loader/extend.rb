@@ -1,8 +1,8 @@
 ActiveSupport.on_load(:active_record) do
   module ActiveRecord
-    Base.prepend(CountLoader::BaseExtension)
     Reflection.prepend(CountLoader::ReflectionExtension)
     Associations::JoinDependency.prepend(CountLoader::JoinDependencyExtension)
+    Associations::Builder::HasMany.prepend(CountLoader::Builder::HasManyExtension)
     Reflection::AssociationReflection.prepend(CountLoader::AssociationReflectionExtension)
   end
 end
