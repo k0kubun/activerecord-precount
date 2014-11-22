@@ -1,9 +1,9 @@
 module ActiveRecord
   module CountLoader
-    module Model
-      def self.included(model)
-        model.singleton_class.class_eval do
-          include ClassMethods
+    module BaseExtension
+      def self.prepended(base)
+        base.singleton_class.class_eval do
+          prepend ClassMethods
         end
       end
 
