@@ -1,5 +1,5 @@
 module ActiveRecord
-  module HasCount
+  module CountLoader
     VERSION = "0.1.0"
   end
 end
