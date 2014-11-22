@@ -1,14 +1,18 @@
+<% start = Time.now %>
 <table border="1">
   <thead>
     <tr>
       <th>
-        tweet_id
+        id
       </th>
       <th>
         replies_count
       </th>
       <th>
-        favorites_count
+        tweet.id
+      </th>
+      <th>
+        tweet.favorites_count
       </th>
     </tr>
   </thead>
@@ -19,11 +23,27 @@
           <%= tweet.id %>
         </td>
         <td>
-          <%= tweet.replies.count %>
+          <%= tweet.replies_count %>
         </td>
         <td>
+          <%= tweet.tweet.try(:id) %>
+        </td>
+        <td>
+          <%= tweet.tweet.try(:favorites_count) %>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
+<% finish = Time.now %>
+
+<p>
+  <%= eager_load? ? 'Eager loaded' : 'N+1 query' %>
+</p>
+<p>
+  Time: <%= "%.1f" % ((finish - start) * 1000) %>ms
+</p>
+
+<p>
+  <%= link_to 'Swtich', url_for(eager_load: !eager_load?) %>
+<p>
