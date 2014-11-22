@@ -9,10 +9,10 @@
         replies_count
       </th>
       <th>
-        tweet.id
+        in_reply_to.id
       </th>
       <th>
-        tweet.favorites_count
+        in_reply_to.favorites_count
       </th>
     </tr>
   </thead>
@@ -26,10 +26,10 @@
           <%= tweet.replies_count %>
         </td>
         <td>
-          <%= tweet.tweet.try(:id) %>
+          <%= tweet.in_reply_to.try(:id) %>
         </td>
         <td>
-          <%= tweet.tweet.try(:favorites_count) %>
+          <%= tweet.in_reply_to.try(:favorites_count) %>
         </td>
       </tr>
     <% end %>

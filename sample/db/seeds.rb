@@ -7,6 +7,6 @@
   count.times do
     user = User.create
     Favorite.create(tweet: tweet, user: user)
-    Tweet.create(tweet: tweet, user: user)
+    Tweet.create(in_reply_to: tweet, user: user)
   end
 end
