@@ -15,4 +15,5 @@ gem 'activerecord-has_count', path: '..'
 group :development do
   gem 'pry'
   gem 'spring'
+  gem 'silencer'
 end
