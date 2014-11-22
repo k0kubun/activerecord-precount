@@ -20,17 +20,17 @@ gem 'activerecord-count_loader'
 
 ## Usage
 
-### Add has\_count scope
-First, call `count_loader` with an association whose count you want to preload
+### Enable count\_loader option
+First, enable your has\_many association's count\_loader option.
 
-```rb
+```diff
 class Tweet
-  has_many :replies
-  count_loader :replies # defines association named :replies_count
+-  has_many :favorites
++  has_many :favorites, count_loader: true
 end
 ```
 
-The option creates an additional association whose name is `replies_count`.  
+The option defines an additional association whose name is `favorites_count`.  
 Its association type is not an ordinary one (i.e. `has_many`, `belongs_to`) but `count_loader`.
 
 ### Preload the association
@@ -39,25 +39,27 @@ This association works well by default.
 ```rb
 @tweets = Tweet.all
 @tweets.each do |tweet|
-  p tweets.replies_count # same as tweets.replies.count
+  p tweets.favorites_count # same as tweets.favorites.count
 end
 ```
 
 You can eagerly load `count_loader` association by `includes` or `preload`.
 
 ```rb
-@tweets = Tweet.preload(:replies_count)
+@tweets = Tweet.preload(:favorites_count)
 @tweets.each do |tweet|
-  p tweets.replies_count # this line doesn't execute an additional query
+  p tweets.favorites_count # this line doesn't execute an additional query
 end
 ```
 
 Since it is association, you can preload nested `count_loader` association.
 
 ```rb
-@favorites = Favorite.preload(tweet: :replies_count)
-@favorites.each do |favorite|
-  p favorite.tweet.replies_count # this line doesn't execute an additional query
+@users = User.preload(tweets: :favorites_count).all
+@users.each do |user|
+  user.tweets.each do |tweet|
+    p tweet.favorites_count # this line doesn't execute an additional query
+  end
 end
 ```
 
