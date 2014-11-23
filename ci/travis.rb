@@ -10,3 +10,5 @@ commands = [
 commands.each do |command|
   system("#{command} > /dev/null 2>&1")
 end
+
+system("bundle exec rake $TASK")

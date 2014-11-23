@@ -3,10 +3,14 @@ language: ruby
 rvm:
   - 2.1.5
 gemfile:
-  - ci/Gemfile.activerecord-3.2.x
-  - ci/Gemfile.activerecord-4.0.x
+  #- ci/Gemfile.activerecord-3.2.x
+  #- ci/Gemfile.activerecord-4.0.x
   - ci/Gemfile.activerecord-4.1.x
 env:
-  - ARCONN=sqlite3
-  - ARCONN=mysql2
-  - ARCONN=postgresql
+  - TASK=test ARCONN=sqlite3
+  - TASK=test ARCONN=mysql2
+  - TASK=test ARCONN=postgresql
+  - TASK=benchmark ARCONN=mysql2
+matrix:
+  allow_failures:
+    - TASK=benchmark ARCONN=mysql2
