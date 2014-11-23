@@ -36,19 +36,6 @@ module ActiveRecord
           scope.where(association_key.in(ids)).pluck(association_key_name)
         end
       end
-
-      private
-
-      def preloader_for_with_count_loader(reflection, owners, rhs_klass)
-        preloader = preloader_for_without_count_loader(reflection, owners, rhs_klass)
-        return preloader if preloader
-
-        case reflection.macro
-        when :count_loader
-          CountLoader
-        end
-      end
-      alias_method_chain :preloader_for, :count_loader
     end
   end
 end
