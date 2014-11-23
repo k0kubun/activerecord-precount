@@ -13,4 +13,5 @@ env:
   - TASK=benchmark ARCONN=mysql2
 matrix:
   allow_failures:
-    - TASK=benchmark ARCONN=mysql2
+    env:
+      - TASK=benchmark ARCONN=mysql2
