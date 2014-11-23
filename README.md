@@ -63,6 +63,12 @@ Since it is association, you can preload nested `count_loader` association.
 end
 ```
 
+## Testing
+
+```bash
+$ bundle exec rake
+```
+
 ## Contributing
 
 1. Fork it ( https://github.com/k0kubun/activerecord-count_loader/fork )
