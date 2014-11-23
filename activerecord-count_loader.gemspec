@@ -27,4 +27,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "mysql2"
   spec.add_development_dependency "postgres"
   spec.add_development_dependency "rbench"
+  spec.add_development_dependency "volatile_counter_cache"
+  spec.add_development_dependency "dalli"
 end

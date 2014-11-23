@@ -2,6 +2,7 @@ require 'config'
 
 require 'active_record'
 require 'activerecord-count_loader'
+require 'volatile_counter_cache'
 
 require 'support/config'
 require 'support/connection'
