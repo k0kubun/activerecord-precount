@@ -1,64 +1,42 @@
 $LOAD_PATH.unshift File.expand_path('../test', __FILE__)
 
+require 'rbench'
 require 'cases/db_config'
 require 'models/tweet'
 require 'models/favorite'
 
-TWEET_COUNT = 20
-FAVORITE_COUNT = 5
+RBench.run(50) do
+  column :counter_cache, title: 'counter_cache'
+  column :count_loader,  title: 'count_loader'
+  column :has_many,      title: 'preload has_many'
+  column :left_join,     title: 'LEFT JOIN'
+  column :count_query,   title: 'N+1 COUNT'
 
-TWEET_COUNT.times do
-  tweet = Tweet.create(favorites_count_cache: 0)
+  join_relation = Tweet.joins('LEFT JOIN favorites ON tweets.id = favorites.tweet_id').
+    select('tweets.*, COUNT(favorites.id) AS favorites_count').group('tweets.id')
 
-  replies = FAVORITE_COUNT.times.map do
-    Favorite.create(tweet: tweet)
-  end
-end
-
-def assert_equal(expect, actual)
-  raise "Expected #{expect}, but got #{actual}" if expect != actual
-end
-
-Benchmark.bmbm do |bench|
-  bench.report("counter_cache         ") do
-    tweets = Tweet.first(TWEET_COUNT)
-
-    tweets.each do |t|
-      assert_equal(FAVORITE_COUNT, t.favorites_count_cache)
+  def prepare_records(tweets_count, favorites_count)
+    tweets_count.times do
+      t = Tweet.create(favorites_count_cache: 0)
+      favorites_count.times { Favorite.create(tweet: t) }
     end
   end
 
-  bench.report("N+1 COUNT query       ") do
-    tweets = Tweet.first(TWEET_COUNT)
+  test_cases = [
+    [10, 1],
+    [10, 5],
+    [10, 20],
+  ]
 
-    tweets.each do |t|
-      assert_equal(FAVORITE_COUNT, t.favorites.count)
-    end
-  end
+  test_cases.each do |tweets_count, favorites_count|
+    prepare_records(tweets_count, favorites_count)
 
-  bench.report("LEFT JOIN             ") do
-    tweets = Tweet.joins('LEFT JOIN favorites ON tweets.id = favorites.tweet_id').
-      select('tweets.*, COUNT(favorites.id) AS favorites_count').
-      group('tweets.id').first(TWEET_COUNT)
-
-    tweets.each do |t|
-      assert_equal(FAVORITE_COUNT, t.favorites_count)
-    end
-  end
-
-  bench.report("preloaded count_loader") do
-    tweets = Tweet.preload(:favorites_count).first(TWEET_COUNT)
-
-    tweets.each do |t|
-      assert_equal(FAVORITE_COUNT, t.favorites_count)
-    end
-  end
-
-  bench.report("preloaded has_many    ") do
-    tweets = Tweet.preload(:favorites).first(TWEET_COUNT)
-
-    tweets.each do |t|
-      assert_equal(FAVORITE_COUNT, t.favorites.size)
+    report "N = #{tweets_count}, count = #{favorites_count}" do
+      counter_cache { Tweet.first(tweets_count).map(&:favorites_count_cache) }
+      count_loader  { Tweet.preload(:favorites_count).first(tweets_count).map(&:favorites_count) }
+      has_many      { Tweet.preload(:favorites).first(tweets_count).map{ |t| t.favorites.size } }
+      left_join     { join_relation.first(tweets_count).map(&:favorites_count) }
+      count_query   { Tweet.first(tweets_count).map{ |t| t.favorites.count } }
     end
   end
 end

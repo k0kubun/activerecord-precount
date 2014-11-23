@@ -5,8 +5,20 @@ gemspec
 
 group :development do
   case ENV['ARCONN']
-  when 'sqlite3'  then gem 'sqlite3'
-  when 'mysql2'   then gem 'mysql2'
-  when 'postgres' then gem 'postgres'
+  when 'mysql2'
+    gem 'mysql2'
+  when 'postgres'
+    gem 'postgres'
+  else
+    gem 'sqlite3'
+  end
+
+  unless ENV['TASK'] == 'test'
+    gem 'pry'
+  end
+
+  if ENV['TASK'].nil? || ENV['TASK'] == 'benchmark'
+    gem 'rbench', github: 'miloops/rbench'
   end
 end
+
