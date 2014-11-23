@@ -8,9 +8,9 @@ require 'models/favorite'
 RBench.run(50) do
   column :counter_cache, title: 'counter_cache'
   column :count_loader,  title: 'count_loader'
-  column :has_many,      title: 'preload has_many'
   column :left_join,     title: 'LEFT JOIN'
   column :count_query,   title: 'N+1 COUNT'
+  column :has_many,      title: 'preload has_many'
 
   join_relation = Tweet.joins('LEFT JOIN favorites ON tweets.id = favorites.tweet_id').
     select('tweets.*, COUNT(favorites.id) AS favorites_count').group('tweets.id')
@@ -23,9 +23,9 @@ RBench.run(50) do
   end
 
   test_cases = [
-    [10, 1],
     [10, 5],
-    [10, 20],
+    [20, 20],
+    [30, 100],
   ]
 
   test_cases.each do |tweets_count, favorites_count|
@@ -34,9 +34,9 @@ RBench.run(50) do
     report "N = #{tweets_count}, count = #{favorites_count}" do
       counter_cache { Tweet.first(tweets_count).map(&:favorites_count_cache) }
       count_loader  { Tweet.preload(:favorites_count).first(tweets_count).map(&:favorites_count) }
-      has_many      { Tweet.preload(:favorites).first(tweets_count).map{ |t| t.favorites.size } }
       left_join     { join_relation.first(tweets_count).map(&:favorites_count) }
       count_query   { Tweet.first(tweets_count).map{ |t| t.favorites.count } }
+      has_many      { Tweet.preload(:favorites).first(tweets_count).map{ |t| t.favorites.size } }
     end
   end
 end
