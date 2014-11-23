@@ -1,9 +1,10 @@
-require 'minitest/autorun'
-require 'pry'
+require 'config'
+
+require 'support/autorun'
+
 require 'active_record'
 require 'activerecord-count_loader'
-
-require 'config'
+require 'cases/test_case'
 
 require 'support/config'
 require 'support/connection'
