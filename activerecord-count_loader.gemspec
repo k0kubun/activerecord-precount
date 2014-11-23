@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = ">= 2.1"
   spec.add_runtime_dependency "activerecord", ">= 3.2.0"
-  spec.add_development_dependency "minitest", ">= 5.4"
+  spec.add_development_dependency "minitest"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "erubis"
   spec.add_development_dependency "bundler"

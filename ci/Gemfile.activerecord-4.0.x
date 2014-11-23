@@ -1,0 +1,4 @@
+source "https://rubygems.org"
+
+gem 'activerecord', '~> 4.0.0'
+gemspec path: '..'
