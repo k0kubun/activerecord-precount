@@ -1,18 +1,19 @@
 script: ci/travis.rb
 language: ruby
 rvm:
-  - 2.1.0
+  #- 2.1.0
   - 2.1.5
-  - ruby-head
+  #- ruby-head
 gemfile:
-  - ci/Gemfile.activerecord-3.2.x
-  - ci/Gemfile.activerecord-4.0.x
+  #- ci/Gemfile.activerecord-3.2.x
+  #- ci/Gemfile.activerecord-4.0.x
   - ci/Gemfile.activerecord-4.1.x
-  - ci/Gemfile.activerecord-4.2.x
+  #- ci/Gemfile.activerecord-4.2.x
 env:
   - ARCONN=sqlite3
   - ARCONN=mysql2
+  - ARCONN=postgresql
 matrix:
   allow_failures:
-    - rvm: ruby-head
-    - gemfile: ci/Gemfile.activerecord-4.2.x
+    #- rvm: ruby-head
+    #- gemfile: ci/Gemfile.activerecord-4.2.x
