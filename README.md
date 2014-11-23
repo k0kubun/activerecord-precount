@@ -1,4 +1,4 @@
-# ActiveRecord::CountLoader
+# ActiveRecord::CountLoader [![Build Status](https://travis-ci.org/k0kubun/activerecord-count_loader.svg?branch=master)](https://travis-ci.org/k0kubun/activerecord-count_loader)
 
 N+1 count query killer for ActiveRecord.  
 ActiveRecord::CountLoader allows you to cache count of associated records by eager loading.
