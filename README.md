@@ -63,6 +63,19 @@ Since it is association, you can preload nested `count_loader` association.
 end
 ```
 
+## Supported Versions
+
+- Ruby
+  - 2.1
+- Rails
+  - 3.2, 4.0, 4.1
+
+### Databases
+
+- sqlite
+- mysql
+- postgresql
+
 ## Testing
 
 ```bash
