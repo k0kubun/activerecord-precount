@@ -46,7 +46,7 @@ end
 You can eagerly load `count_loader` association by `includes` or `preload`.
 
 ```rb
-@tweets = Tweet.preload(:favorites_count)
+@tweets = Tweet.all.preload(:favorites_count)
 @tweets.each do |tweet|
   p tweets.favorites_count # this line doesn't execute an additional query
 end
@@ -55,7 +55,7 @@ end
 Since it is association, you can preload nested `count_loader` association.
 
 ```rb
-@users = User.preload(tweets: :favorites_count).all
+@users = User.all.preload(tweets: :favorites_count)
 @users.each do |user|
   user.tweets.each do |tweet|
     p tweet.favorites_count # this line doesn't execute an additional query
