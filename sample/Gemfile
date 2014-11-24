@@ -13,7 +13,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'activerecord-count_loader', path: '..'
 
 group :development do
-  gem 'pry'
+  gem 'pry-rails'
   gem 'spring'
   gem 'silencer'
 end
