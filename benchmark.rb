@@ -7,14 +7,14 @@ require 'models/tweet'
 
 RBench.run(50) do
   column :counter_cache,          title: 'counter_cache'
-  column :count_loader,           title: 'activerecord-count_loader'
-  column :volatile_counter_cache, title: 'volatile_counter_cache'
-  column :has_many,               title: 'preload has_many'
   column :left_join,              title: 'LEFT JOIN'
+  column :volatile_counter_cache, title: 'volatile_counter_cache'
+  column :count_loader,           title: 'activerecord-count_loader'
+  column :has_many,               title: 'preload has_many'
   column :count_query,            title: 'N+1 COUNT'
 
   join_relation = Tweet.joins('LEFT JOIN favorites ON tweets.id = favorites.tweet_id').
-    select('tweets.*, COUNT(favorites.id) AS favorites_count').group('tweets.id')
+    select('tweets.*, COUNT(favorites.id) AS joined_count').group('tweets.id')
 
   def prepare_records(tweets_count, favorites_count)
     tweets_count.times do
@@ -34,10 +34,10 @@ RBench.run(50) do
 
     report "N = #{tweets_count}, count = #{favorites_count}" do
       counter_cache          { Tweet.first(tweets_count).map(&:favorites_count_cache) }
-      count_loader           { Tweet.preload(:favorites_count).first(tweets_count).map(&:favorites_count) }
+      left_join              { join_relation.first(tweets_count).map(&:joined_count) }
       volatile_counter_cache { Tweet.first(tweets_count).map(&:volatile_favorites_count) }
+      count_loader           { Tweet.preload(:favorites_count).first(tweets_count).map(&:favorites_count) }
       has_many               { Tweet.preload(:favorites).first(tweets_count).map{ |t| t.favorites.size } }
-      left_join              { join_relation.first(tweets_count).map(&:favorites_count) }
       count_query            { Tweet.first(tweets_count).map{ |t| t.favorites.count } }
     end
   end

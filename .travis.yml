@@ -15,5 +15,3 @@ matrix:
   allow_failures:
     env:
       - TASK=benchmark ARCONN=mysql2
-services:
-  - memcached
