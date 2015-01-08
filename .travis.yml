@@ -5,14 +5,12 @@ rvm:
   - 2.2
 sudo: false
 gemfile:
-  - ci/Gemfile.activerecord-3.2.x
-  - ci/Gemfile.activerecord-4.0.x
   - ci/Gemfile.activerecord-4.1.x
   - ci/Gemfile.activerecord-4.2.x
 env:
-  #- TASK=test ARCONN=sqlite3
+  - TASK=test ARCONN=sqlite3
   - TASK=test ARCONN=mysql2
-  #- TASK=test ARCONN=postgresql
+  - TASK=test ARCONN=postgresql
   #- TASK=benchmark ARCONN=mysql2
 matrix:
   allow_failures:
