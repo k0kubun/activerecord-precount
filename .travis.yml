@@ -1,32 +1,26 @@
 script: ci/travis.rb
 language: ruby
-rvm:
-  - 2.0
-  - 2.1
-  - 2.2
 sudo: false
-gemfile:
-  - ci/Gemfile.activerecord-4.1.x
-  - ci/Gemfile.activerecord-4.2.x
-env:
-  - TASK=test ARCONN=sqlite3
-  - TASK=test ARCONN=mysql2
-  - TASK=test ARCONN=postgresql
-  #- TASK=benchmark ARCONN=mysql2
 matrix:
-  exclude:
+  include:
     - rvm: 2.0
-      env: TASK=test ARCONN=sqlite3
-    - rvm: 2.0
-      env: TASK=test ARCONN=postgresql
-    - rvm: 2.0
+      env: TASK=test ARCONN=mysql2
+      gemfile: ci/Gemfile.activerecord-4.2.x
+    - rvm: 2.1
+      env: TASK=test ARCONN=mysql2
+      gemfile: ci/Gemfile.activerecord-4.2.x
+    - rvm: 2.2
+      env: TASK=test ARCONN=mysql2
       gemfile: ci/Gemfile.activerecord-4.1.x
-    - rvm: 2.1
+    - rvm: 2.2
       env: TASK=test ARCONN=sqlite3
-    - rvm: 2.1
+      gemfile: ci/Gemfile.activerecord-4.2.x
+    - rvm: 2.2
+      env: TASK=test ARCONN=mysql2
+      gemfile: ci/Gemfile.activerecord-4.2.x
+    - rvm: 2.2
       env: TASK=test ARCONN=postgresql
-    - rvm: 2.1
-      gemfile: ci/Gemfile.activerecord-4.1.x
+      gemfile: ci/Gemfile.activerecord-4.2.x
   allow_failures:
     env:
       - TASK=benchmark ARCONN=mysql2
