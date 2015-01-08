@@ -14,4 +14,14 @@ module ActiveRecord
       end
     end
   end
+
+  module Reflection
+    class CountLoaderReflection < AssociationReflection
+      def initialize(name, scope, options, active_record)
+        super(name, scope, options, active_record)
+      end
+
+      def macro; :count_loader; end
+    end
+  end
 end

@@ -11,7 +11,11 @@ module ActiveRecord
         def create(macro, name, scope, options, ar)
           case macro
           when :count_loader
-            Reflection::AssociationReflection.new(macro, name, scope, options, ar)
+            if ActiveRecord::VERSION::MAJOR >= 4 && ActiveRecord::VERSION::MINOR >= 2
+              Reflection::CountLoaderReflection.new(name, scope, options, ar)
+            else
+              Reflection::AssociationReflection.new(macro, name, scope, options, ar)
+            end
           else
             super(macro, name, scope, options, ar)
           end
