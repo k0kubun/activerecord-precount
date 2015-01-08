@@ -2,6 +2,7 @@ script: ci/travis.rb
 language: ruby
 rvm:
   - 2.1.5
+sudo: false
 gemfile:
   #- ci/Gemfile.activerecord-3.2.x
   #- ci/Gemfile.activerecord-4.0.x
