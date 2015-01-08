@@ -8,7 +8,6 @@ require 'models/tweet'
 RBench.run(50) do
   column :counter_cache,          title: 'counter_cache'
   column :left_join,              title: 'LEFT JOIN'
-  column :volatile_counter_cache, title: 'volatile_counter_cache'
   column :count_loader,           title: 'activerecord-count_loader'
   column :has_many,               title: 'preload has_many'
   column :count_query,            title: 'N+1 COUNT'
@@ -35,7 +34,6 @@ RBench.run(50) do
     report "N = #{tweets_count}, count = #{favorites_count}" do
       counter_cache          { Tweet.first(tweets_count).map(&:favorites_count_cache) }
       left_join              { join_relation.first(tweets_count).map(&:joined_count) }
-      volatile_counter_cache { Tweet.first(tweets_count).map(&:volatile_favorites_count) }
       count_loader           { Tweet.preload(:favorites_count).first(tweets_count).map(&:favorites_count) }
       has_many               { Tweet.preload(:favorites).first(tweets_count).map{ |t| t.favorites.size } }
       count_query            { Tweet.first(tweets_count).map{ |t| t.favorites.count } }
