@@ -66,9 +66,9 @@ end
 ## Supported Versions
 
 - Ruby
-  - 2.1
+  - 2.0, 2.1, 2.2
 - Rails
-  - 3.2, 4.0, 4.1
+  - 3.2, 4.0, 4.1, 4.2
 
 ### Databases
 
