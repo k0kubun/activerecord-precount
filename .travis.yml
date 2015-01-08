@@ -25,5 +25,4 @@ matrix:
       env: TASK=benchmark ARCONN=mysql2
       gemfile: ci/Gemfile.activerecord-4.2.x
   allow_failures:
-    env:
-      - TASK=benchmark ARCONN=mysql2
+    - env: TASK=benchmark ARCONN=mysql2
