@@ -13,21 +13,21 @@
 
 ActiveRecord::Schema.define(version: 20141122002555) do
 
-  create_table "favorites", force: true do |t|
-    t.integer  "tweet_id"
-    t.integer  "user_id"
+  create_table "favorites", force: :cascade do |t|
+    t.integer  "tweet_id",   limit: 4
+    t.integer  "user_id",    limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "tweets", force: true do |t|
-    t.integer  "in_reply_to_tweet_id"
-    t.integer  "user_id"
+  create_table "tweets", force: :cascade do |t|
+    t.integer  "in_reply_to_tweet_id", limit: 4
+    t.integer  "user_id",              limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "users", force: true do |t|
+  create_table "users", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
   end
