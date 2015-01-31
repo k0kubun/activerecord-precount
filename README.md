@@ -1,14 +1,39 @@
 # ActiveRecord::Precount [![Build Status](https://travis-ci.org/k0kubun/activerecord-precount.svg?branch=master)](https://travis-ci.org/k0kubun/activerecord-precount)
 
-N+1 count query killer for ActiveRecord.  
+N+1 count query killer for ActiveRecord. Yet another counter\_cache alternative.  
 ActiveRecord::Precount allows you to cache count of associated records by eager loading.
 
-## Why ActiveRecord::Precount?
-Rails provides a way to resolve N+1 count query, which is [belongs\_to's counter\_cache option](http://guides.rubyonrails.org/association_basics.html#counter-cache).  
-It requires a column to cache the count. But adding a column just for count cache is overkill.  
-  
-Thus this plugin enables you to preload counts in the same way as `has_many` and `belongs_to`.  
-`count_loader` is an ActiveRecord's association, which is preloadable by `preload` or `includes`.
+## Synopsis
+
+### N+1 count query
+
+Sometimes you may see many count queries for one association.
+You can use counter\_cache to solve it, but it costs much to use counter\_cache.
+
+```rb
+Tweet.all.each do |tweet|
+  p tweet.favorites.count
+end
+# SELECT `tweets`.* FROM `tweets`
+# SELECT COUNT(*) FROM `tweets` WHERE `tweets`.`tweet_id` = 1
+# SELECT COUNT(*) FROM `tweets` WHERE `tweets`.`tweet_id` = 2
+# SELECT COUNT(*) FROM `tweets` WHERE `tweets`.`tweet_id` = 3
+# SELECT COUNT(*) FROM `tweets` WHERE `tweets`.`tweet_id` = 4
+# SELECT COUNT(*) FROM `tweets` WHERE `tweets`.`tweet_id` = 5
+```
+
+### Count eager loading
+
+With activerecord-precount gem installed, you can use `precount` method
+to eagerly load counts of associated records.
+
+```rb
+Tweet.all.precount(:favorites).each do |tweet|
+  p tweet.favorites.count
+end
+# SELECT `tweets`.* FROM `tweets`
+# SELECT `tweets`.`in_reply_to_tweet_id` FROM `tweets` WHERE `tweets`.`tweet_id` IN (1, 2, 3, 4, 5)
+```
 
 ## Installation
 
@@ -18,63 +43,16 @@ Add this line to your application's Gemfile:
 gem 'activerecord-precount'
 ```
 
-## Usage
-
-### Enable count\_loader option
-First, enable your has\_many association's count\_loader option.
-
-```diff
- class Tweet
--  has_many :favorites
-+  has_many :favorites, count_loader: true
- end
-```
-
-The option defines an additional association whose name is `favorites_count`.  
-Its association type is not an ordinary one (i.e. `has_many`, `belongs_to`) but `count_loader`.
-
-### Preload the association
-This association works well by default.
-
-```rb
-@tweets = Tweet.all
-@tweets.each do |tweet|
-  p tweets.favorites_count # same as tweets.favorites.count
-end
-```
-
-You can eagerly load `count_loader` association by `includes` or `preload`.
-
-```rb
-@tweets = Tweet.all.preload(:favorites_count)
-@tweets.each do |tweet|
-  p tweets.favorites_count # this line doesn't execute an additional query
-end
-```
-
-Since it is association, you can preload nested `count_loader` association.
-
-```rb
-@users = User.all.preload(tweets: :favorites_count)
-@users.each do |user|
-  user.tweets.each do |tweet|
-    p tweet.favorites_count # this line doesn't execute an additional query
-  end
-end
-```
-
 ## Supported Versions
 
 - Ruby
   - 2.0, 2.1, 2.2
 - Rails
   - 4.1, 4.2
-
-### Databases
-
-- sqlite
-- mysql
-- postgresql
+- Databases
+  - sqlite
+  - mysql
+  - postgresql
 
 ## Testing
 
