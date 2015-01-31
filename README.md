@@ -35,6 +35,18 @@ end
 # SELECT COUNT(`tweets`.`tweet_id`), tweet_id FROM `tweets` WHERE `tweets`.`tweet_id` IN (1, 2, 3, 4, 5) GROUP BY tweet_id
 ```
 
+## Benchmark
+
+With [this benchmark](https://github.com/k0kubun/activerecord-precount/blob/079c8fdaaca4e7f08f542f825e296183a3f19c67/benchmark.rb)
+([result](https://travis-ci.org/k0kubun/activerecord-precount/jobs/48996451)),
+precounted query is **7.7x faster** than N+1 count query.
+
+```rb
+# Tweet count is 50, and each tweet has 10 favorites
+Tweet.precount(:favorites).first(50).map(&:favorites_count) # 0.190
+Tweet.first(50).map{ |t| t.favorites.count }                # 1.472
+```
+
 ## Installation
 
 Add this line to your application's Gemfile:
