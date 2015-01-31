@@ -17,17 +17,21 @@ module ActiveRecord
 
       def define_count_loader!(*args)
         args.each do |arg|
-          raise ArgumentError, "#{klass} does not have :#{arg} association." unless has_reflection?(arg.to_s)
-          next if klass.reflections.keys.include?(counter_name = "#{arg}_count")
+          raise ArgumentError, "#{klass} does not have :#{arg} association." unless has_reflection?(arg)
+          next if has_reflection?(counter_name = :"#{arg}_count")
 
-          options = reflections[arg.to_s].options.slice(*Associations::Builder::CountLoader.valid_options)
-          reflection = Associations::Builder::CountLoader.build(klass, counter_name.to_sym, nil, options)
+          options = reflection_for(arg).options.slice(*Associations::Builder::CountLoader.valid_options)
+          reflection = Associations::Builder::CountLoader.build(klass, counter_name, nil, options)
           Reflection.add_reflection(model, counter_name, reflection)
         end
       end
 
       def has_reflection?(name)
-        reflections.keys.include?(name)
+        reflection_for(name).present?
+      end
+
+      def reflection_for(name)
+        reflections[name.to_s]
       end
     end
   end
