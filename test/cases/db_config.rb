@@ -1,7 +1,7 @@
 require 'config'
 
 require 'active_record'
-require 'activerecord-count_loader'
+require 'activerecord-precount'
 
 require 'support/config'
 require 'support/connection'

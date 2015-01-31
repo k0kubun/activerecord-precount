@@ -6,7 +6,7 @@ module ActiveRecord
     end
   end
 
-  module CountLoader
+  module Precount
     module JoinDependencyExtension
       def build(associations, base_klass)
         associations.map do |name, right|

@@ -5,4 +5,4 @@ require "active_record/associations/count_loader"
 require "active_record/associations/builder/count_loader"
 require "active_record/associations/preloader/count_loader"
 
-require "active_record/count_loader/extend"
+require "active_record/precount/extend"

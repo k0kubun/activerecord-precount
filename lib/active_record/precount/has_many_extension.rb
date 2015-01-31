@@ -1,5 +1,5 @@
 module ActiveRecord
-  module CountLoader
+  module Precount
     module Builder
       module HasManyExtension
         def valid_options

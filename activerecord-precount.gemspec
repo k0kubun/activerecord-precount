@@ -1,15 +1,15 @@
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'active_record/count_loader/version'
+require 'active_record/precount/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "activerecord-count_loader"
-  spec.version       = ActiveRecord::CountLoader::VERSION
+  spec.name          = "activerecord-precount"
+  spec.version       = ActiveRecord::Precount::VERSION
   spec.authors       = ["Takashi Kokubun"]
   spec.email         = ["takashikkbn@gmail.com"]
   spec.summary       = %q{N+1 count query killer for ActiveRecord}
   spec.description   = %q{N+1 count query killer for ActiveRecord}
-  spec.homepage      = "https://github.com/k0kubun/activerecord-count_loader"
+  spec.homepage      = "https://github.com/k0kubun/activerecord-precount"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")

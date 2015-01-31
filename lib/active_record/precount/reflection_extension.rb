@@ -1,5 +1,5 @@
 module ActiveRecord
-  module CountLoader
+  module Precount
     module ReflectionExtension
       def self.prepended(base)
         class << base

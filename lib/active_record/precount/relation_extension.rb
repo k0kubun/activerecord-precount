@@ -1,5 +1,5 @@
 module ActiveRecord
-  module CountLoader
+  module Precount
     module RelationExtension
       def precount(*args)
         check_if_method_has_arguments!(:precount, args)

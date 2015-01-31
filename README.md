@@ -1,9 +1,9 @@
-# ActiveRecord::CountLoader [![Build Status](https://travis-ci.org/k0kubun/activerecord-count_loader.svg?branch=master)](https://travis-ci.org/k0kubun/activerecord-count_loader)
+# ActiveRecord::Precount [![Build Status](https://travis-ci.org/k0kubun/activerecord-precount.svg?branch=master)](https://travis-ci.org/k0kubun/activerecord-precount)
 
 N+1 count query killer for ActiveRecord.  
-ActiveRecord::CountLoader allows you to cache count of associated records by eager loading.
+ActiveRecord::Precount allows you to cache count of associated records by eager loading.
 
-## Why ActiveRecord::CountLoader?
+## Why ActiveRecord::Precount?
 Rails provides a way to resolve N+1 count query, which is [belongs\_to's counter\_cache option](http://guides.rubyonrails.org/association_basics.html#counter-cache).  
 It requires a column to cache the count. But adding a column just for count cache is overkill.  
   
@@ -15,7 +15,7 @@ Thus this plugin enables you to preload counts in the same way as `has_many` and
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'activerecord-count_loader'
+gem 'activerecord-precount'
 ```
 
 ## Usage
@@ -84,7 +84,7 @@ $ bundle exec rake
 
 ## Contributing
 
-1. Fork it ( https://github.com/k0kubun/activerecord-count_loader/fork )
+1. Fork it ( https://github.com/k0kubun/activerecord-precount/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
