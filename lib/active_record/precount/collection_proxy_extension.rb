@@ -7,8 +7,8 @@ module ActiveRecord
         counter_name = :"#{@association.reflection.name}_count"
         owner        = @association.owner
 
-        if owner.class.has_reflection?(counter_name)
-          owner.send(counter_name)
+        if owner.class.has_reflection?(counter_name) && owner.association(counter_name).loaded?
+          owner.association(counter_name).target
         else
           super(*args)
         end
