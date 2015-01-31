@@ -31,7 +31,11 @@ module ActiveRecord
       end
 
       def reflection_for(name)
-        reflections[name.to_s]
+        if ActiveRecord::VERSION::MAJOR >= 4 && ActiveRecord::VERSION::MINOR >= 2
+          reflections[name.to_s]
+        else
+          reflections[name.to_sym]
+        end
       end
     end
   end
