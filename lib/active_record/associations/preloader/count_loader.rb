@@ -14,10 +14,7 @@ module ActiveRecord
 
         def preload(preloader)
           associated_records_by_owner(preloader).each do |owner, associated_records|
-            count = associated_records.count
-
-            association = owner.association(reflection.name)
-            association.target = count
+            owner.association(reflection.name).target = associated_records.first.to_i
           end
         end
 
@@ -26,14 +23,13 @@ module ActiveRecord
             records_for(slice)
           }
 
-          @preloaded_records.map { |record|
-            key = record
-            [record, key]
+          @preloaded_records.first.map { |key, count|
+            [count, key]
           }
         end
 
         def query_scope(ids)
-          scope.where(association_key.in(ids)).pluck(association_key_name)
+          scope.where(association_key.in(ids)).group(association_key_name).count(association_key_name)
         end
       end
     end
