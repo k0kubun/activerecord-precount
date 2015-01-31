@@ -27,6 +27,7 @@ RBench.run(50) do
     [10, 5],
     [20, 20],
     [30, 100],
+    [50, 10],
   ]
 
   test_cases.each do |tweets_count, favorites_count|
