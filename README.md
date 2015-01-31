@@ -32,7 +32,7 @@ Tweet.all.precount(:favorites).each do |tweet|
   p tweet.favorites.count
 end
 # SELECT `tweets`.* FROM `tweets`
-# SELECT `tweets`.`in_reply_to_tweet_id` FROM `tweets` WHERE `tweets`.`tweet_id` IN (1, 2, 3, 4, 5)
+# SELECT `tweets`.`tweet_id` FROM `tweets` WHERE `tweets`.`tweet_id` IN (1, 2, 3, 4, 5)
 ```
 
 ## Installation
@@ -54,16 +54,6 @@ gem 'activerecord-precount'
   - mysql
   - postgresql
 
-## Testing
+## License
 
-```bash
-$ bundle exec rake
-```
-
-## Contributing
-
-1. Fork it ( https://github.com/k0kubun/activerecord-precount/fork )
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
+MIT License
