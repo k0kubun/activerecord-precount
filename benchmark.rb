@@ -8,7 +8,7 @@ require 'models/tweet'
 RBench.run(50) do
   column :counter_cache,          title: 'counter_cache'
   column :left_join,              title: 'LEFT JOIN'
-  column :count_loader,           title: 'activerecord-count_loader'
+  column :count_loader,           title: 'precount has_many'
   column :has_many,               title: 'preload has_many'
   column :count_query,            title: 'N+1 COUNT'
 
