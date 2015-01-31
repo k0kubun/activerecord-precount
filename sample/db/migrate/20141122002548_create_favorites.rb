@@ -6,5 +6,6 @@ class CreateFavorites < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :favorites, :tweet_id
   end
 end

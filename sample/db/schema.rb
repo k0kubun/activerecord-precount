@@ -20,12 +20,16 @@ ActiveRecord::Schema.define(version: 20141122002555) do
     t.datetime "updated_at"
   end
 
+  add_index "favorites", ["tweet_id"], name: "index_favorites_on_tweet_id", using: :btree
+
   create_table "tweets", force: :cascade do |t|
     t.integer  "in_reply_to_tweet_id", limit: 4
     t.integer  "user_id",              limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "tweets", ["in_reply_to_tweet_id"], name: "index_tweets_on_in_reply_to_tweet_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.datetime "created_at"

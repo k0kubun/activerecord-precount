@@ -23,7 +23,7 @@
           <%= tweet.id %>
         </td>
         <td>
-          <%= tweet.replies.count %>
+          <%= eager_load? ? tweet.replies_count : tweet.replies.count %>
         </td>
         <td>
           <%= tweet.in_reply_to.try(:id) %>
