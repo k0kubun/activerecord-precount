@@ -15,11 +15,11 @@ Tweet.all.each do |tweet|
   p tweet.favorites.count
 end
 # SELECT `tweets`.* FROM `tweets`
-# SELECT COUNT(*) FROM `tweets` WHERE `tweets`.`tweet_id` = 1
-# SELECT COUNT(*) FROM `tweets` WHERE `tweets`.`tweet_id` = 2
-# SELECT COUNT(*) FROM `tweets` WHERE `tweets`.`tweet_id` = 3
-# SELECT COUNT(*) FROM `tweets` WHERE `tweets`.`tweet_id` = 4
-# SELECT COUNT(*) FROM `tweets` WHERE `tweets`.`tweet_id` = 5
+# SELECT COUNT(*) FROM `favorites` WHERE `favorites`.`tweet_id` = 1
+# SELECT COUNT(*) FROM `favorites` WHERE `favorites`.`tweet_id` = 2
+# SELECT COUNT(*) FROM `favorites` WHERE `favorites`.`tweet_id` = 3
+# SELECT COUNT(*) FROM `favorites` WHERE `favorites`.`tweet_id` = 4
+# SELECT COUNT(*) FROM `favorites` WHERE `favorites`.`tweet_id` = 5
 ```
 
 ### Count eager loading
@@ -32,7 +32,7 @@ Tweet.all.precount(:favorites).each do |tweet|
   p tweet.favorites.count
 end
 # SELECT `tweets`.* FROM `tweets`
-# SELECT COUNT(`tweets`.`tweet_id`), tweet_id FROM `tweets` WHERE `tweets`.`tweet_id` IN (1, 2, 3, 4, 5) GROUP BY tweet_id
+# SELECT COUNT(`favorites`.`tweet_id`), `favorites`.`tweet_id` FROM `favorites` WHERE `favorites`.`tweet_id` IN (1, 2, 3, 4, 5) GROUP BY `favorites`.`tweet_id`
 ```
 
 ## Benchmark
