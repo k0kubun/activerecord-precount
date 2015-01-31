@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   def index
     @tweets = Tweet.all
     if eager_load?
-      @tweets = @tweets.preload(:replies_count, in_reply_to: :favorites_count)
+      @tweets = @tweets.precount(:replies).preload(in_reply_to: :favorites_count)
     end
   end
 
