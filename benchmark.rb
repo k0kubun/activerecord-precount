@@ -8,8 +8,9 @@ require 'models/tweet'
 RBench.run(50) do
   column :counter_cache,          title: 'counter_cache'
   column :left_join,              title: 'LEFT JOIN'
-  column :count_loader,           title: 'precount has_many'
-  column :has_many,               title: 'preload has_many'
+  column :count_loader,           title: 'count_loader'
+  column :precount,               title: 'precount'
+  column :has_many,               title: 'preload'
   column :count_query,            title: 'N+1 COUNT'
 
   join_relation = Tweet.joins('LEFT JOIN favorites ON tweets.id = favorites.tweet_id').
@@ -35,6 +36,7 @@ RBench.run(50) do
       counter_cache          { Tweet.first(tweets_count).map(&:favorites_count_cache) }
       left_join              { join_relation.first(tweets_count).map(&:joined_count) }
       count_loader           { Tweet.preload(:favorites_count).first(tweets_count).map(&:favorites_count) }
+      precount               { Tweet.precount(:favorites).first(tweets_count).map { |t| t.favorites.count } }
       has_many               { Tweet.preload(:favorites).first(tweets_count).map{ |t| t.favorites.size } }
       count_query            { Tweet.first(tweets_count).map{ |t| t.favorites.count } }
     end
