@@ -23,7 +23,7 @@
           <%= tweet.id %>
         </td>
         <td>
-          <%= eager_load? ? tweet.replies_count : tweet.replies.count %>
+          <%= (precount? || eager_count?) ? tweet.replies_count : tweet.replies.count %>
         </td>
         <td>
           <%= tweet.in_reply_to.try(:id) %>
@@ -38,12 +38,14 @@
 <% finish = Time.now %>
 
 <p>
-  <%= eager_load? ? 'Eager loaded' : 'N+1 query' %>
+  Loader: <%= loader %>
 </p>
 <p>
   Time: <%= "%.1f" % ((finish - start) * 1000) %>ms
 </p>
 
 <p>
-  <%= link_to 'Swtich', url_for(eager_load: !eager_load?) %>
-<p>
+  <% ApplicationController::AVAILABLE_LOADERS.each do |ld| %>
+    <%= link_to_unless loader == ld, ld, url_for(loader: ld) %>
+  <% end %>
+</p>
