@@ -24,8 +24,11 @@ end
 
 ### Count eager loading
 
+#### precount
+
 With activerecord-precount gem installed, you can use `precount` method
 to eagerly load counts of associated records.
+Like `preload`, it loads counts by multiple queries
 
 ```rb
 Tweet.all.precount(:favorites).each do |tweet|
@@ -35,16 +38,28 @@ end
 # SELECT COUNT(`favorites`.`tweet_id`), `favorites`.`tweet_id` FROM `favorites` WHERE `favorites`.`tweet_id` IN (1, 2, 3, 4, 5) GROUP BY `favorites`.`tweet_id`
 ```
 
+#### eager\_count
+
+Like `eager_load`, `eager_count` method allows you to load counts by one JOIN query.
+
+```rb
+Tweet.all.eager_count(:favorites).each do |tweet|
+  p tweet.favorites.count
+end
+# SELECT `tweets`.`id` AS t0_r0, `tweets`.`tweet_id` AS t0_r1, `tweets`.`user_id` AS t0_r2, `tweets`.`created_at` AS t0_r3, `tweets`.`updated_at` AS t0_r4, COUNT(`favorites`.`id`) AS t1_r0 FROM `tweets` LEFT OUTER JOIN `favorites` ON `favorites`.`tweet_id` = `tweets`.`id` GROUP BY tweets.id
+```
+
 ## Benchmark
 
-With [this benchmark](https://github.com/k0kubun/activerecord-precount/blob/079c8fdaaca4e7f08f542f825e296183a3f19c67/benchmark.rb)
-([result](https://travis-ci.org/k0kubun/activerecord-precount/jobs/48996451)),
-precounted query is **7.7x faster** than N+1 count query.
+With [this benchmark](https://github.com/k0kubun/activerecord-precount/blob/40765d36ff0e0627cd0941b2c0a0f6573290c67e/benchmark.rb)
+([result](https://travis-ci.org/k0kubun/activerecord-precount/jobs/49061937)),
+precount's query is **7.9x faster** and eager\_count's query is **11.7x faster** than N+1 count query.
 
 ```rb
 # Tweet count is 50, and each tweet has 10 favorites
-Tweet.precount(:favorites).first(50).map(&:favorites_count) # 0.190
-Tweet.first(50).map{ |t| t.favorites.count }                # 1.472
+Tweet.eager_count(:favorites).map(&:favorites_count)  # 0.119
+Tweet.precount(:favorites).map(&:favorites_count)     # 0.176
+Tweet.all.map{ |t| t.favorites.count }                # 1.401
 ```
 
 ## Installation
@@ -69,8 +84,8 @@ gem 'activerecord-precount'
 ## Advanced Usage
 
 ### Nested eager loading
-`Foo.precount(:bars)` automatically defines `bars_count` association for `Foo`.
-Thus you can preload the association and call `foo.bars_count`.
+`Foo.precount(:bars)` or `Foo.eager_count(:bars)` automatically defines `bars_count` association for `Foo`.
+That enables you to preload the association and call `foo.bars_count`.
 
 You can manually define `bars_count` with follwoing code.
 
@@ -103,9 +118,11 @@ Though precounted `bars.count` is faster than not-precounted one, the fallback i
 ```rb
 # slow
 Foo.precount(:bars).map { |f| f.bars.count }
+Foo.eager_count(:bars).map { |f| f.bars.count }
 
 # fast (recommended)
 Foo.precount(:bars).map { |f| f.bars_count }
+Foo.eager_count(:bars).map { |f| f.bars_count }
 ```
 
 ## License
