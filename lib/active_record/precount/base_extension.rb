@@ -1,7 +1,7 @@
 module ActiveRecord
   module Precount
     module BaseExtension
-      delegate :precount, to: :all
+      delegate :precount, :eager_count, to: :all
 
       def has_reflection?(name)
         reflection_for(name).present?
