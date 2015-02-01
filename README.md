@@ -51,15 +51,19 @@ end
 
 ## Benchmark
 
-With [this benchmark](https://github.com/k0kubun/activerecord-precount/blob/40765d36ff0e0627cd0941b2c0a0f6573290c67e/benchmark.rb)
-([result](https://travis-ci.org/k0kubun/activerecord-precount/jobs/49061937)),
-precount's query is **7.9x faster** and eager\_count's query is **11.7x faster** than N+1 count query.
+The [result](https://travis-ci.org/k0kubun/activerecord-precount/jobs/49061937) of
+[this benchmark](https://github.com/k0kubun/activerecord-precount/blob/40765d36ff0e0627cd0941b2c0a0f6573290c67e/benchmark.rb).
+
+|    | N+1 query | precount | eager\_count |
+|:-- |:----------|:---------|:-------------|
+| Time | 1.401 | 0.176 | 0.119 |
+| Ratio | 1.0x | **7.9x faster** | **11.7x faster** |
 
 ```rb
 # Tweet count is 50, and each tweet has 10 favorites
-Tweet.eager_count(:favorites).map(&:favorites_count)  # 0.119
-Tweet.precount(:favorites).map(&:favorites_count)     # 0.176
-Tweet.all.map{ |t| t.favorites.count }                # 1.401
+Tweet.all.map{ |t| t.favorites.count }                # N+1 query
+Tweet.precount(:favorites).map(&:favorites_count)     # precount
+Tweet.eager_count(:favorites).map(&:favorites_count)  # eager_count
 ```
 
 ## Installation
