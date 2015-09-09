@@ -32,8 +32,10 @@ module ActiveRecord
           raise ArgumentError, "Association named '#{arg}' was not found on #{klass.name}." unless has_reflection?(arg)
           next if has_reflection?(counter_name = :"#{arg}_count")
 
-          options = reflection_for(arg).options.slice(*Associations::Builder::CountLoader.valid_options)
-          reflection = Associations::Builder::CountLoader.build(klass, counter_name, nil, options)
+          original_reflection = reflection_for(arg)
+          scope = original_reflection.scope
+          options = original_reflection.options.slice(*Associations::Builder::CountLoader.valid_options)
+          reflection = Associations::Builder::CountLoader.build(klass, counter_name, scope, options)
           Reflection.add_reflection(model, counter_name, reflection)
         end
       end
