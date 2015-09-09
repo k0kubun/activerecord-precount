@@ -16,7 +16,7 @@ module ActiveRecord
           name_with_count = options[:count_loader] if options[:count_loader].is_a?(Symbol)
 
           valid_options = options.slice(*Associations::Builder::CountLoader.valid_options)
-          reflection = Associations::Builder::CountLoader.build(model, name_with_count, nil, valid_options)
+          reflection = Associations::Builder::CountLoader.build(model, name_with_count, scope, valid_options)
           Reflection.add_reflection(model, name_with_count, reflection)
         end
       end

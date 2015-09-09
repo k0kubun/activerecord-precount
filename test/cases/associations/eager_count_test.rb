@@ -2,9 +2,11 @@ require 'cases/helper'
 
 class EagerCountTest < ActiveRecord::CountLoader::TestCase
   def setup
-    tweets_count.times.map do |index|
+    tweets_count.times do |i|
       tweet = Tweet.create
-      index.times { Favorite.create(tweet: tweet) }
+      i.times do |j|
+        Favorite.create(tweet: tweet, user_id: j + 1)
+      end
     end
 
     if Tweet.has_reflection?(:favs_count)
@@ -25,9 +27,9 @@ class EagerCountTest < ActiveRecord::CountLoader::TestCase
   end
 
   def test_eager_count_defines_count_loader
-    assert_equal(Tweet.has_reflection?(:favs_count), false)
+    assert_equal(false, Tweet.has_reflection?(:favs_count))
     Tweet.eager_count(:favs).map(&:favs_count)
-    assert_equal(Tweet.has_reflection?(:favs_count), true)
+    assert_equal(true, Tweet.has_reflection?(:favs_count))
   end
 
   def test_eager_count_has_many_with_count_loader_does_not_execute_n_1_queries
@@ -39,8 +41,14 @@ class EagerCountTest < ActiveRecord::CountLoader::TestCase
 
   def test_eager_count_has_many_counts_properly
     expected = Tweet.order(id: :asc).map { |t| t.favorites.count }
-    assert_equal(Tweet.order(id: :asc).map(&:favorites_count), expected)
-    assert_equal(Tweet.order(id: :asc).eager_count(:favorites).map { |t| t.favorites.count }, expected)
-    assert_equal(Tweet.order(id: :asc).eager_count(:favorites).map(&:favorites_count), expected)
+    assert_equal(expected, Tweet.order(id: :asc).map(&:favorites_count))
+    assert_equal(expected, Tweet.order(id: :asc).eager_count(:favorites).map { |t| t.favorites.count })
+    assert_equal(expected, Tweet.order(id: :asc).eager_count(:favorites).map(&:favorites_count))
+  end
+
+  def test_eager_count_has_many_with_scope_counts_properly
+    expected = Tweet.order(id: :asc).map { |t| t.my_favs.count }
+    assert_equal(expected, Tweet.order(id: :asc).eager_count(:my_favs).map { |t| t.my_favs.count })
+    assert_equal(expected, Tweet.order(id: :asc).eager_count(:my_favs).map(&:my_favs_count))
   end
 end

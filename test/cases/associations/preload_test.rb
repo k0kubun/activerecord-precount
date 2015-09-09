@@ -2,9 +2,11 @@ require 'cases/helper'
 
 class PreloadTest < ActiveRecord::CountLoader::TestCase
   def setup
-    tweets_count.times.map do |index|
+    tweets_count.times do |i|
       tweet = Tweet.create
-      index.times { Favorite.create(tweet: tweet) }
+      i.times do |j|
+        Favorite.create(tweet: tweet, user_id: j + 1)
+      end
     end
   end
 
@@ -24,7 +26,13 @@ class PreloadTest < ActiveRecord::CountLoader::TestCase
 
   def test_preloaded_count_loader_counts_properly
     expected = Tweet.all.map { |t| t.favorites.count }
-    assert_equal(Tweet.all.map(&:favorites_count), expected)
-    assert_equal(Tweet.preload(:favorites_count).map(&:favorites_count), expected)
+    assert_equal(expected, Tweet.all.map(&:favorites_count))
+    assert_equal(expected, Tweet.preload(:favorites_count).map(&:favorites_count))
+  end
+
+  def test_preloaded_count_loader_with_scope_counts_properly
+    expected = Tweet.all.map { |t| t.my_favorites.count }
+    assert_equal(expected, Tweet.all.map(&:my_favorites_count))
+    assert_equal(expected, Tweet.preload(:my_favorites_count).map(&:my_favorites_count))
   end
 end
