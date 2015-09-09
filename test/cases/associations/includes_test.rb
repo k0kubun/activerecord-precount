@@ -26,13 +26,13 @@ class IncludesTest < ActiveRecord::CountLoader::TestCase
 
   def test_included_count_loader_counts_properly
     expected = Tweet.all.map { |t| t.favorites.count }
-    assert_equal(Tweet.all.map(&:favorites_count), expected)
-    assert_equal(Tweet.includes(:favorites_count).map(&:favorites_count), expected)
+    assert_equal(expected, Tweet.all.map(&:favorites_count))
+    assert_equal(expected, Tweet.includes(:favorites_count).map(&:favorites_count))
   end
 
   def test_included_count_loader_with_scope_counts_properly
     expected = Tweet.all.map { |t| t.my_favorites.count }
-    assert_equal(Tweet.all.map(&:my_favorites_count), expected)
-    assert_equal(Tweet.includes(:my_favorites_count).map(&:my_favorites_count), expected)
+    assert_equal(expected, Tweet.all.map(&:my_favorites_count))
+    assert_equal(expected, Tweet.includes(:my_favorites_count).map(&:my_favorites_count))
   end
 end

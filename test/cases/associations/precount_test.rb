@@ -27,9 +27,9 @@ class PrecountTest < ActiveRecord::CountLoader::TestCase
   end
 
   def test_precount_defines_count_loader
-    assert_equal(Tweet.has_reflection?(:favs_count), false)
+    assert_equal(false, Tweet.has_reflection?(:favs_count))
     Tweet.precount(:favs).map(&:favs_count)
-    assert_equal(Tweet.has_reflection?(:favs_count), true)
+    assert_equal(true, Tweet.has_reflection?(:favs_count))
   end
 
   def test_precount_has_many_with_count_loader_does_not_execute_n_1_queries
@@ -41,14 +41,14 @@ class PrecountTest < ActiveRecord::CountLoader::TestCase
 
   def test_precount_has_many_counts_properly
     expected = Tweet.all.map { |t| t.favorites.count }
-    assert_equal(Tweet.all.map(&:favorites_count), expected)
-    assert_equal(Tweet.precount(:favorites).map { |t| t.favorites.count }, expected)
-    assert_equal(Tweet.precount(:favorites).map(&:favorites_count), expected)
+    assert_equal(expected, Tweet.all.map(&:favorites_count))
+    assert_equal(expected, Tweet.precount(:favorites).map { |t| t.favorites.count })
+    assert_equal(expected, Tweet.precount(:favorites).map(&:favorites_count))
   end
 
   def test_precount_has_many_with_scope_counts_properly
     expected = Tweet.all.map { |t| t.my_favs.count }
-    assert_equal(Tweet.precount(:my_favs).map { |t| t.my_favs.count }, expected)
-    assert_equal(Tweet.precount(:my_favs).map(&:my_favs_count), expected)
+    assert_equal(expected, Tweet.precount(:my_favs).map { |t| t.my_favs.count })
+    assert_equal(expected, Tweet.precount(:my_favs).map(&:my_favs_count))
   end
 end
