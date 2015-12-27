@@ -77,7 +77,7 @@ gem 'activerecord-precount'
 ## Supported Versions
 
 - Ruby
-  - 2.0, 2.1, 2.2
+  - 2.0, 2.1, 2.2, 2.3
 - Rails
   - 4.1, 4.2
 - Databases

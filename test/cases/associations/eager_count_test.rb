@@ -8,17 +8,17 @@ class EagerCountTest < ActiveRecord::CountLoader::TestCase
         Favorite.create(tweet: tweet, user_id: j + 1)
       end
     end
+  end
 
+  def teardown
     if Tweet.has_reflection?(:favs_count)
       if ActiveRecord::VERSION::MAJOR >= 4 && ActiveRecord::VERSION::MINOR >= 2
-        Tweet._reflections.delete('favs_count')
+        Tweet.reflections.delete('favs_count')
       else
         Tweet._reflections.delete(:favs_count)
       end
     end
-  end
 
-  def teardown
     [Tweet, Favorite].each(&:delete_all)
   end
 

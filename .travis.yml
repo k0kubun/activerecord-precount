@@ -15,17 +15,20 @@ matrix:
       gemfile: ci/Gemfile.activerecord-4.2.x
     - rvm: 2.2
       env: TASK=test ARCONN=mysql2
+      gemfile: ci/Gemfile.activerecord-4.2.x
+    - rvm: 2.3.0
+      env: TASK=test ARCONN=mysql2
       gemfile: ci/Gemfile.activerecord-4.1.x
-    - rvm: 2.2
+    - rvm: 2.3.0
       env: TASK=test ARCONN=sqlite3
       gemfile: ci/Gemfile.activerecord-4.2.x
-    - rvm: 2.2
+    - rvm: 2.3.0
       env: TASK=test ARCONN=mysql2
       gemfile: ci/Gemfile.activerecord-4.2.x
-    - rvm: 2.2
+    - rvm: 2.3.0
       env: TASK=test ARCONN=postgresql
       gemfile: ci/Gemfile.activerecord-4.2.x
-    - rvm: 2.2
+    - rvm: 2.3.0
       env: TASK=benchmark ARCONN=mysql2
       gemfile: ci/Gemfile.activerecord-4.2.x
   allow_failures:
