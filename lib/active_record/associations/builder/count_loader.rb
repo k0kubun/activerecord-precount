@@ -1,6 +1,8 @@
 module ActiveRecord::Associations::Builder
   class CountLoader < SingularAssociation
-    self.valid_options = [:class, :class_name, :foreign_key]
+    def self.valid_options
+      [:class, :class_name, :foreign_key]
+    end
 
     def macro
       :count_loader
