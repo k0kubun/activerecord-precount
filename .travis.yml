@@ -7,32 +7,23 @@ branches:
     - master
 matrix:
   include:
-    - rvm: 2.0
-      env: TASK=test ARCONN=mysql2
-      gemfile: ci/Gemfile.activerecord-4.2.x
-    - rvm: 2.1
-      env: TASK=test ARCONN=mysql2
-      gemfile: ci/Gemfile.activerecord-4.2.x
     - rvm: 2.2
       env: TASK=test ARCONN=mysql2
-      gemfile: ci/Gemfile.activerecord-4.2.x
-    - rvm: 2.3.0
-      env: TASK=test ARCONN=mysql2
-      gemfile: ci/Gemfile.activerecord-4.1.x
-    - rvm: 2.3.0
-      env: TASK=test ARCONN=sqlite3
-      gemfile: ci/Gemfile.activerecord-4.2.x
-    - rvm: 2.3.0
-      env: TASK=test ARCONN=mysql2
-      gemfile: ci/Gemfile.activerecord-4.2.x
-    - rvm: 2.3.0
-      env: TASK=test ARCONN=postgresql
-      gemfile: ci/Gemfile.activerecord-4.2.x
+      gemfile: ci/Gemfile.activerecord-5.0.x
     - rvm: 2.3.0
       env: TASK=test ARCONN=mysql2
       gemfile: ci/Gemfile.activerecord-5.0.x
     - rvm: 2.3.0
+      env: TASK=test ARCONN=sqlite3
+      gemfile: ci/Gemfile.activerecord-5.0.x
+    - rvm: 2.3.0
+      env: TASK=test ARCONN=mysql2
+      gemfile: ci/Gemfile.activerecord-5.0.x
+    - rvm: 2.3.0
+      env: TASK=test ARCONN=postgresql
+      gemfile: ci/Gemfile.activerecord-5.0.x
+    - rvm: 2.3.0
       env: TASK=benchmark ARCONN=mysql2
-      gemfile: ci/Gemfile.activerecord-4.2.x
+      gemfile: ci/Gemfile.activerecord-5.0.x
   allow_failures:
     - env: TASK=benchmark ARCONN=mysql2

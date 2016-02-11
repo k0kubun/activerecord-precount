@@ -8,11 +8,7 @@ module ActiveRecord
       end
 
       def reflection_for(name)
-        if ActiveRecord::VERSION::MAJOR >= 4 && ActiveRecord::VERSION::MINOR >= 2
-          reflections[name.to_s]
-        else
-          reflections[name.to_sym]
-        end
+        reflections[name.to_s]
       end
     end
   end
