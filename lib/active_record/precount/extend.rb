@@ -9,12 +9,12 @@ require "active_record/precount/relation_extension"
 ActiveSupport.on_load(:active_record) do
   module ActiveRecord
     Base.send(:extend, Precount::BaseExtension)
-    Relation.send(:prepend, Precount::RelationExtension)
-    Reflection.send(:prepend, Precount::ReflectionExtension)
-    Associations::Preloader.send(:prepend, Precount::PreloaderExtension)
-    Associations::JoinDependency.send(:prepend, Precount::JoinDependencyExtension)
-    Associations::CollectionProxy.send(:prepend, Precount::CollectionProxyExtension)
-    Associations::Builder::HasMany.send(:prepend, Precount::Builder::HasManyExtension)
-    Reflection::AssociationReflection.send(:prepend, Precount::AssociationReflectionExtension)
+    Relation.prepend(Precount::RelationExtension)
+    Reflection.prepend(Precount::ReflectionExtension)
+    Associations::Preloader.prepend(Precount::PreloaderExtension)
+    Associations::JoinDependency.prepend(Precount::JoinDependencyExtension)
+    Associations::CollectionProxy.prepend(Precount::CollectionProxyExtension)
+    Associations::Builder::HasMany.prepend(Precount::Builder::HasManyExtension)
+    Reflection::AssociationReflection.prepend(Precount::AssociationReflectionExtension)
   end
 end
