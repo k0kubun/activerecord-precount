@@ -26,6 +26,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "sqlite3"
   spec.add_development_dependency "mysql2", ">= 0.3", "< 0.4"
   spec.add_development_dependency "postgres"
-  spec.add_development_dependency "rbench"
   spec.add_development_dependency "dalli"
 end
