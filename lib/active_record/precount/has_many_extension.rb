@@ -2,12 +2,18 @@ module ActiveRecord
   module Associations
     module Builder
       class CountLoader < SingularAssociation
-        def self.valid_options
+        def self.valid_options(*)
           [:class, :class_name, :foreign_key]
         end
 
-        def macro
-          :count_loader
+        if ActiveRecord.version.segments.first >= 5
+          def self.macro
+            :count_loader
+          end
+        else
+          def macro
+            :count_loader
+          end
         end
 
         def self.valid_dependent_options
