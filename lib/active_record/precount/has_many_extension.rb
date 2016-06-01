@@ -40,4 +40,6 @@ module ActiveRecord
       end
     end
   end
+
+  Associations::Builder::HasMany.prepend(Precount::Builder::HasManyExtension)
 end

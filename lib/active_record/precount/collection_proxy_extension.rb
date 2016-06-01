@@ -15,4 +15,6 @@ module ActiveRecord
       end
     end
   end
+
+  Associations::CollectionProxy.prepend(Precount::CollectionProxyExtension)
 end

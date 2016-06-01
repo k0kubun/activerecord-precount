@@ -69,4 +69,7 @@ module ActiveRecord
       end
     end
   end
+
+  Reflection.prepend(Precount::ReflectionExtension)
+  Reflection::AssociationReflection.prepend(Precount::AssociationReflectionExtension)
 end

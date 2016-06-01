@@ -48,4 +48,6 @@ module ActiveRecord
       end
     end
   end
+
+  Associations::Preloader.prepend(Precount::PreloaderExtension)
 end

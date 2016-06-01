@@ -46,4 +46,6 @@ module ActiveRecord
       end
     end
   end
+
+  Associations::JoinDependency.prepend(Precount::JoinDependencyExtension)
 end
