@@ -19,6 +19,7 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = ">= 2.1"
   spec.add_runtime_dependency "activerecord", ">= 5.0.0.beta1"
   spec.add_runtime_dependency "activesupport", ">= 5.0.0.beta1"
+  spec.add_development_dependency "benchmark-ips"
   spec.add_development_dependency "minitest"
   spec.add_development_dependency "minitest-line"
   spec.add_development_dependency "rake"
