@@ -71,7 +71,7 @@ module ActiveRecord
   end
 
   if ActiveRecord.version.segments.first >= 5
-    Associations::Builder::HasMany.send(:extend, Precount::Builder::Rails5HasManyExtension)
+    Associations::Builder::HasMany.extend(Precount::Builder::Rails5HasManyExtension)
   else
     Associations::Builder::HasMany.prepend(Precount::Builder::Rails4HasManyExtension)
   end
