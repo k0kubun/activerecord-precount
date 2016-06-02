@@ -51,21 +51,20 @@ module ActiveRecord
         end
 
         def build(model, name, scope, options, &block)
-          super
           if scope.is_a?(Hash)
             options = scope
-            scope = nil
+            scope   = nil
           end
-          define_count_loader(model, name, scope, options) if options[:count_loader]
-        end
 
-        def define_count_loader(model, name, scope, options)
-          name_with_count = :"#{name}_count"
-          name_with_count = options[:count_loader] if options[:count_loader].is_a?(Symbol)
+          if options[:count_loader]
+            name_with_count = :"#{name}_count"
+            name_with_count = options[:count_loader] if options[:count_loader].is_a?(Symbol)
 
-          valid_options = options.slice(*Associations::Builder::CountLoader.valid_options)
-          reflection = Associations::Builder::CountLoader.build(model, name_with_count, scope, valid_options)
-          Reflection.add_reflection(model, name_with_count, reflection)
+            valid_options = options.slice(*Associations::Builder::CountLoader.valid_options)
+            reflection = Associations::Builder::CountLoader.build(model, name_with_count, scope, valid_options)
+            Reflection.add_reflection(model, name_with_count, reflection)
+          end
+          super
         end
       end
     end
