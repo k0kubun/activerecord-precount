@@ -1,3 +1,5 @@
+require 'active_record/precount/count_loader_builder'
+
 module ActiveRecord
   module Precount
     module RelationExtension
@@ -7,7 +9,7 @@ module ActiveRecord
       end
 
       def precount!(*args)
-        define_count_loader!(*args)
+        CountLoaderBuilder.new(klass).build_from_query_methods(*args)
 
         self.preload_values += args.map { |arg| :"#{arg}_count" }
         self
@@ -19,7 +21,7 @@ module ActiveRecord
       end
 
       def eager_count!(*args)
-        define_count_loader!(*args)
+        CountLoaderBuilder.new(klass).build_from_query_methods(*args)
 
         self.eager_load_values += args.map { |arg| :"#{arg}_count" }
         self
@@ -27,21 +29,8 @@ module ActiveRecord
 
       private
 
-      def define_count_loader!(*args)
-        args.each do |arg|
-          raise ArgumentError, "Association named '#{arg}' was not found on #{klass.name}." unless has_reflection?(arg)
-          next if has_reflection?(counter_name = :"#{arg}_count")
-
-          original_reflection = reflection_for(arg)
-          scope = original_reflection.scope
-          options = original_reflection.options.slice(*Associations::Builder::CountLoader.valid_options)
-          reflection = Associations::Builder::CountLoader.build(klass, counter_name, scope, options)
-          Reflection.add_reflection(model, counter_name, reflection)
-        end
-      end
-
       def apply_join_dependency(relation, join_dependency)
-        relation = super(relation, join_dependency)
+        relation = super
 
         # to count associated records in JOIN query, group scope is necessary
         join_dependency.reflections.each do |reflection|

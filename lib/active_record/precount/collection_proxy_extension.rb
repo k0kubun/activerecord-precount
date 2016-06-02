@@ -1,16 +1,16 @@
+require 'active_record/precount/reflection_checker'
+
 module ActiveRecord
   module Precount
     module CollectionProxyExtension
       def count(*args)
-        return super(*args) if args.present?
+        return super if args.present?
 
         counter_name = :"#{@association.reflection.name}_count"
-        owner        = @association.owner
-
-        if owner.class.has_reflection?(counter_name) && owner.association(counter_name).loaded?
-          owner.association(counter_name).target
+        if ReflectionChecker.count_loaded?(@association.owner, counter_name)
+          @association.owner.association(counter_name).target
         else
-          super(*args)
+          super
         end
       end
     end
