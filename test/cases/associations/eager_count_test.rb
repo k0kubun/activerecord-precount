@@ -11,7 +11,7 @@ class EagerCountTest < ActiveRecord::CountLoader::TestCase
   end
 
   def teardown
-    if Tweet.has_reflection?(:favs_count)
+    if has_reflection?(Tweet, :favs_count)
       Tweet.reflections.delete('favs_count')
     end
 
@@ -23,9 +23,9 @@ class EagerCountTest < ActiveRecord::CountLoader::TestCase
   end
 
   def test_eager_count_defines_count_loader
-    assert_equal(false, Tweet.has_reflection?(:favs_count))
+    assert_equal(false, has_reflection?(Tweet, :favs_count))
     Tweet.eager_count(:favs).map(&:favs_count)
-    assert_equal(true, Tweet.has_reflection?(:favs_count))
+    assert_equal(true, has_reflection?(Tweet, :favs_count))
   end
 
   def test_eager_count_has_many_with_count_loader_does_not_execute_n_1_queries

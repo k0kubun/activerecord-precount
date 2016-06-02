@@ -1,5 +1,11 @@
+require 'active_record/precount/reflection_checker'
+
 module ActiveRecord::CountLoader
   class TestCase < Minitest::Test
+    def has_reflection?(klass, name)
+      ActiveRecord::Precount::ReflectionChecker.has_reflection?(klass, name)
+    end
+
     def teardown
       SQLCounter.clear_log
     end

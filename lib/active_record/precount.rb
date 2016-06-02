@@ -10,7 +10,6 @@ require "active_support/lazy_load_hooks"
 #     * preloader_extension:        Return CountLoader preloader and preload in it
 #     * join_dependency_extension:  Use COUNT query in #aliases for eager_load and map it in #construct
 #       * collection_proxy_extension: Fallback to eager-loaded values when foo.count is called
-#         * base_extension:             Check model has the association
 #
 # 2. precount(:foo)
 #   * relation_extension:         Add #precount query method, which defines count_loader association and adds preload_values
@@ -18,7 +17,6 @@ require "active_support/lazy_load_hooks"
 #   * reflection_extension:       Return CountLoaderReflection in Reflection.create
 #     * preloader_extension:        Return CountLoader preloader and preload in it
 #       * collection_proxy_extension: Fallback to eager-loaded values when foo.count is called
-#         * base_extension:             Check model has the association
 #
 # 3. eager_count(:foo)
 #   * relation_extension:         Add #eager_count query method, which defines count_loader association and adds eager_load_values
@@ -26,7 +24,6 @@ require "active_support/lazy_load_hooks"
 #   * reflection_extension:       Return CountLoaderReflection in Reflection.create
 #     * join_dependency_extension:  Use COUNT query in #aliases for eager_load and map it in #construct
 #       * collection_proxy_extension: Fallback to eager-loaded values when foo.count is called
-#         * base_extension:             Check model has the association
 #
 ActiveSupport.on_load(:active_record) do
   require "active_record/precount/base_extension"

@@ -1,3 +1,5 @@
+require 'active_record/precount/reflection_checker'
+
 module ActiveRecord
   module Precount
     module RelationExtension
@@ -29,8 +31,10 @@ module ActiveRecord
 
       def define_count_loader!(*args)
         args.each do |arg|
-          raise ArgumentError, "Association named '#{arg}' was not found on #{klass.name}." unless has_reflection?(arg)
-          next if has_reflection?(counter_name = :"#{arg}_count")
+          unless ReflectionChecker.has_reflection?(self, arg)
+            raise ArgumentError, "Association named '#{arg}' was not found on #{klass.name}."
+          end
+          next if ReflectionChecker.has_reflection?(self, counter_name = :"#{arg}_count")
 
           original_reflection = reflection_for(arg)
           scope = original_reflection.scope
