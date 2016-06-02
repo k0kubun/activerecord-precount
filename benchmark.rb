@@ -20,7 +20,6 @@ end
 
 test_cases = [
   [30, 100],
-  [50, 10],
 ]
 
 test_cases.each do |tweets_count, favorites_count|
