@@ -79,7 +79,7 @@ gem 'activerecord-precount'
 - Ruby
   - 2.1, 2.2, 2.3
 - Rails
-  - 4.1, 4.2
+  - 4.2, 5.0
 - Databases
   - sqlite
   - mysql
