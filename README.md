@@ -32,7 +32,7 @@ Like `preload`, it loads counts by multiple queries
 
 ```rb
 Tweet.all.precount(:favorites).each do |tweet|
-  p tweet.favorites.count
+  p tweet.favorites_count
 end
 # SELECT `tweets`.* FROM `tweets`
 # SELECT COUNT(`favorites`.`tweet_id`), `favorites`.`tweet_id` FROM `favorites` WHERE `favorites`.`tweet_id` IN (1, 2, 3, 4, 5) GROUP BY `favorites`.`tweet_id`
@@ -44,7 +44,7 @@ Like `eager_load`, `eager_count` method allows you to load counts by one JOIN qu
 
 ```rb
 Tweet.all.eager_count(:favorites).each do |tweet|
-  p tweet.favorites.count
+  p tweet.favorites_count
 end
 # SELECT `tweets`.`id` AS t0_r0, `tweets`.`tweet_id` AS t0_r1, `tweets`.`user_id` AS t0_r2, `tweets`.`created_at` AS t0_r3, `tweets`.`updated_at` AS t0_r4, COUNT(`favorites`.`id`) AS t1_r0 FROM `tweets` LEFT OUTER JOIN `favorites` ON `favorites`.`tweet_id` = `tweets`.`id` GROUP BY tweets.id
 ```
@@ -114,7 +114,7 @@ With this condition, you can eagerly load nested association by preload.
 Hoge.preload(foo: :bars_count)
 ```
 
-### Performance issue
+### `count` method is not recommended
 
 With activerecord-precount gem installed, `bars.count` fallbacks to `bars_count` if `bars_count` is defined.
 Though precounted `bars.count` is faster than not-precounted one, the fallback is currently much slower than just calling `bars_count`.
