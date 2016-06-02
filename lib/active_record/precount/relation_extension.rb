@@ -36,7 +36,7 @@ module ActiveRecord
           end
           next if ReflectionChecker.has_reflection?(self, counter_name = :"#{arg}_count")
 
-          original_reflection = reflection_for(arg)
+          original_reflection = reflections[arg.to_s]
           scope = original_reflection.scope
           options = original_reflection.options.slice(*Associations::Builder::CountLoader.valid_options)
           reflection = Associations::Builder::CountLoader.build(klass, counter_name, scope, options)
