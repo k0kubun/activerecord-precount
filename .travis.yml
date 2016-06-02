@@ -9,7 +9,7 @@ matrix:
   include:
     - rvm: 2.1.10
       env: TASK=test ARCONN=mysql2
-      gemfile: ci/Gemfile.activerecord-5.0.x
+      gemfile: ci/Gemfile.activerecord-4.2.x
     - rvm: 2.2.5
       env: TASK=test ARCONN=mysql2
       gemfile: ci/Gemfile.activerecord-5.0.x
