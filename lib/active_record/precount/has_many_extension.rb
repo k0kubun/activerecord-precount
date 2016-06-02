@@ -16,14 +16,14 @@ module ActiveRecord
             end
 
             if options[:count_loader]
-              CountLoaderBuilder.new(model).build(name, scope, options)
+              CountLoaderBuilder.new(model).build_from_has_many(name, scope, options)
             end
             super
           end
         else
           def build(model)
             if options[:count_loader]
-              CountLoaderBuilder.new(model).build(name, scope, options)
+              CountLoaderBuilder.new(model).build_from_has_many(name, scope, options)
             end
             super
           end

@@ -8,6 +8,7 @@ require "active_support/lazy_load_hooks"
 #   * reflection_extension:       Return CountLoaderReflection in Reflection.create
 #     * reflection_extension:       CountLoader#load_target loads counts when not eager-loaded
 #     * preloader_extension:        Return CountLoader preloader and preload in it
+#     * relation_extension:         Apply GROUP in #apply_join_dependency for eager_load
 #     * join_dependency_extension:  Use COUNT query in #aliases for eager_load and map it in #construct
 #       * collection_proxy_extension: Fallback to eager-loaded values when foo.count is called
 #
@@ -22,6 +23,7 @@ require "active_support/lazy_load_hooks"
 #   * relation_extension:         Add #eager_count query method, which defines count_loader association and adds eager_load_values
 #     * base_extension:             Delegate it for class method
 #   * reflection_extension:       Return CountLoaderReflection in Reflection.create
+#     * relation_extension:         Apply GROUP in #apply_join_dependency for eager_load
 #     * join_dependency_extension:  Use COUNT query in #aliases for eager_load and map it in #construct
 #       * collection_proxy_extension: Fallback to eager-loaded values when foo.count is called
 #
