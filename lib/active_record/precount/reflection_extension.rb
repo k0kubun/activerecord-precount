@@ -17,10 +17,6 @@ module ActiveRecord
 
   module Reflection
     class CountLoaderReflection < AssociationReflection
-      def initialize(name, scope, options, active_record)
-        super(name, scope, options, active_record)
-      end
-
       def macro; :count_loader; end
 
       def association_class
