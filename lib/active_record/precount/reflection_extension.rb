@@ -43,7 +43,7 @@ module ActiveRecord
           when :count_loader
             Reflection::CountLoaderReflection.new(name, scope, options, ar)
           else
-            super(macro, name, scope, options, ar)
+            super
           end
         end
       end

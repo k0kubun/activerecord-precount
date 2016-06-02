@@ -42,7 +42,7 @@ module ActiveRecord
         return if normal_children.blank?
 
         normal_parent = Associations::JoinDependency::JoinBase.new(parent.base_klass, normal_children)
-        super(ar_parent, normal_parent, row, rs, seen, model_cache, aliases)
+        super
       end
     end
   end
