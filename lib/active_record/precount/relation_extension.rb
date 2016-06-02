@@ -55,4 +55,6 @@ module ActiveRecord
       end
     end
   end
+
+  Relation.prepend(Precount::RelationExtension)
 end

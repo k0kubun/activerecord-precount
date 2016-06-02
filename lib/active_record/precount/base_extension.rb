@@ -12,4 +12,6 @@ module ActiveRecord
       end
     end
   end
+
+  Base.send(:extend, Precount::BaseExtension)
 end

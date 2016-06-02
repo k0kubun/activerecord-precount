@@ -16,9 +16,11 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^spec/})
   spec.require_paths = ["lib"]
 
-  spec.required_ruby_version = ">= 2.0"
-  spec.add_runtime_dependency "activerecord", "> 4"
+  spec.required_ruby_version = ">= 2.1"
+  spec.add_runtime_dependency "activerecord", ">= 4.2"
+  spec.add_development_dependency "benchmark-ips"
   spec.add_development_dependency "minitest"
+  spec.add_development_dependency "minitest-line"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "erubis"
   spec.add_development_dependency "bundler"
@@ -26,6 +28,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "sqlite3"
   spec.add_development_dependency "mysql2", ">= 0.3", "< 0.4"
   spec.add_development_dependency "postgres"
-  spec.add_development_dependency "rbench"
   spec.add_development_dependency "dalli"
 end

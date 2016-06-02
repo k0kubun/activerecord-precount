@@ -1,4 +1,14 @@
 module ActiveRecord
+  module Reflection
+    class CountLoaderReflection < AssociationReflection
+      def initialize(name, scope, options, active_record)
+        super(name, scope, options, active_record)
+      end
+
+      def macro; :count_loader; end
+    end
+  end
+
   module Precount
     module ReflectionExtension
       def self.prepended(base)
@@ -18,29 +28,7 @@ module ActiveRecord
         end
       end
     end
-
-    module AssociationReflectionExtension
-      def klass
-        case macro
-        when :count_loader
-          @klass ||= active_record.send(:compute_type, options[:class_name] || name_without_count.singularize.classify)
-        else
-          super
-        end
-      end
-
-      def name_without_count
-        name.to_s.sub(/_count$/, "")
-      end
-
-      def association_class
-        case macro
-        when :count_loader
-          ActiveRecord::Associations::CountLoader
-        else
-          super
-        end
-      end
-    end
   end
+
+  Reflection.prepend(Precount::ReflectionExtension)
 end
