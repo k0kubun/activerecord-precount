@@ -7,10 +7,8 @@ module ActiveRecord
         return super if args.present?
 
         counter_name = :"#{@association.reflection.name}_count"
-        owner        = @association.owner
-
-        if ReflectionChecker.has_reflection?(owner.class, counter_name) && owner.association(counter_name).loaded?
-          owner.association(counter_name).target
+        if ReflectionChecker.count_loaded?(@association.owner, counter_name)
+          @association.owner.association(counter_name).target
         else
           super
         end
