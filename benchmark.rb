@@ -19,8 +19,6 @@ def prepare_records(tweets_count, favorites_count)
 end
 
 test_cases = [
-  [10, 5],
-  [20, 20],
   [30, 100],
   [50, 10],
 ]
