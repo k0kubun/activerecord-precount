@@ -1,6 +1,4 @@
 require 'cases/helper'
-require 'models/favorite'
-require 'models/tweet'
 
 class EagerLoadTest < ActiveRecord::CountLoader::TestCase
   def setup
