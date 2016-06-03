@@ -11,7 +11,7 @@ ActiveRecord::Schema.define do
     t.string   :notifiable_type
     t.timestamps null: false
   end
-  add_index :favorites, [:notifiable_id, :notifiable_type]
+  add_index :notifications, [:notifiable_id, :notifiable_type]
 
   create_table :tweets, force: true do |t|
     t.integer  :in_reply_to_tweet_id
