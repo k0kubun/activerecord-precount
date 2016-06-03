@@ -13,4 +13,8 @@ ActiveRecord::Schema.define do
     t.timestamps null: false
   end
   add_index :tweets, :in_reply_to_tweet_id
+
+  create_table :users, force: true do |t|
+    t.timestamps null: false
+  end
 end
