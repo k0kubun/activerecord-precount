@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141122002555) do
+ActiveRecord::Schema.define(version: 20160603161833) do
+
+  create_table "blogs", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.integer  "commentable_id",   limit: 4
+    t.string   "commentable_type", limit: 255
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
 
   create_table "favorites", force: :cascade do |t|
     t.integer  "tweet_id",   limit: 4
@@ -21,6 +33,11 @@ ActiveRecord::Schema.define(version: 20141122002555) do
   end
 
   add_index "favorites", ["tweet_id"], name: "index_favorites_on_tweet_id", using: :btree
+
+  create_table "pages", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "tweets", force: :cascade do |t|
     t.integer  "in_reply_to_tweet_id", limit: 4
