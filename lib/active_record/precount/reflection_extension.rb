@@ -13,6 +13,8 @@ module ActiveRecord
         reset
       end
     end
+
+    class PolymorphicCountLoader < CountLoader; end
   end
 
   module Reflection
@@ -20,7 +22,13 @@ module ActiveRecord
       def macro; :count_loader; end
 
       def association_class
-        ActiveRecord::Associations::CountLoader
+        has_many_reflection   = active_record.reflections[name.to_s.sub(/_count\z/, '')]
+        belongs_to_reflection = klass.reflections[has_many_reflection.try!(:options).try!(:[], :as).try!(:to_s)]
+        if belongs_to_reflection.try!(:polymorphic?)
+          ActiveRecord::Associations::PolymorphicCountLoader
+        else
+          ActiveRecord::Associations::CountLoader
+        end
       end
 
       def klass
