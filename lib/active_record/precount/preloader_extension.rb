@@ -12,6 +12,11 @@ module ActiveRecord
 
         private
 
+        def key_conversion_required?
+          # Are you sure this is always false? But this method is required to map result for polymorphic association.
+          false
+        end
+
         def preload(preloader)
           associated_records_by_owner(preloader).each do |owner, associated_records|
             owner.association(reflection.name).target = associated_records.first.to_i
@@ -19,7 +24,17 @@ module ActiveRecord
         end
 
         def query_scope(ids)
-          scope.where(association_key.in(ids)).group(association_key_name).count(association_key_name)
+          key = model.reflections[reflection.name.to_s.sub(/_count\z/, '')].foreign_key
+          scope.where(key => ids).group(key).count(key)
+        end
+
+        def build_scope
+          super.tap do |scope|
+            has_many_reflection = model.reflections[reflection.name.to_s.sub(/_count\z/, '')]
+            if has_many_reflection.options[:as]
+              scope.where!(klass.table_name => { has_many_reflection.type => model.base_class.sti_name })
+            end
+          end
         end
 
         if ActiveRecord.version.segments.first >= 5
