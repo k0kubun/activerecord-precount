@@ -5,7 +5,9 @@ class PrecountTest < ActiveRecord::CountLoader::TestCase
     tweets_count.times do |i|
       tweet = Tweet.create
       i.times do |j|
-        Favorite.create(tweet: tweet, user_id: j + 1)
+        favorite = Favorite.create(tweet: tweet, user_id: j + 1)
+        Notification.create(notifiable: favorite)
+        Notification.create(notifiable: tweet)
       end
     end
   end
@@ -46,5 +48,12 @@ class PrecountTest < ActiveRecord::CountLoader::TestCase
     expected = Tweet.all.map { |t| t.my_favs.count }
     assert_equal(expected, Tweet.precount(:my_favs).map { |t| t.my_favs.count })
     assert_equal(expected, Tweet.precount(:my_favs).map(&:my_favs_count))
+  end
+
+  def test_polymorphic_precount
+    expected = Tweet.all.map { |t| t.notifications.count }
+    assert_equal(expected, Tweet.precount(:notifications).map(&:notifications_count))
+    assert_equal(expected, Tweet.precount(:notifications).map { |t| t.notifications.count })
+    assert_equal(expected, Tweet.all.map(&:notifications_count))
   end
 end
