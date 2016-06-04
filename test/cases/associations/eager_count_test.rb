@@ -5,7 +5,9 @@ class EagerCountTest < ActiveRecord::CountLoader::TestCase
     tweets_count.times do |i|
       tweet = Tweet.create
       i.times do |j|
-        Favorite.create(tweet: tweet, user_id: j + 1)
+        favorite = Favorite.create(tweet: tweet, user_id: j + 1)
+        Notification.create(notifiable: favorite)
+        Notification.create(notifiable: tweet)
       end
     end
   end
@@ -46,5 +48,12 @@ class EagerCountTest < ActiveRecord::CountLoader::TestCase
     expected = Tweet.order(id: :asc).map { |t| t.my_favs.count }
     assert_equal(expected, Tweet.order(id: :asc).eager_count(:my_favs).map { |t| t.my_favs.count })
     assert_equal(expected, Tweet.order(id: :asc).eager_count(:my_favs).map(&:my_favs_count))
+  end
+
+  def test_polymorphic_eager_count
+    skip 'eager_count of polymorphic is not implemented yet'
+    expected = Tweet.all.map { |t| t.notifications.count }
+    assert_equal(expected, Tweet.eager_count(:notifications).map(&:notifications_count))
+    assert_equal(expected, Tweet.eager_count(:notifications).map { |t| t.notifications.count })
   end
 end

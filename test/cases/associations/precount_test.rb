@@ -50,7 +50,7 @@ class PrecountTest < ActiveRecord::CountLoader::TestCase
     assert_equal(expected, Tweet.precount(:my_favs).map(&:my_favs_count))
   end
 
-  def test_polymorphic_count_loader
+  def test_polymorphic_precount
     expected = Tweet.all.map { |t| t.notifications.count }
     assert_equal(expected, Tweet.precount(:notifications).map(&:notifications_count))
     assert_equal(expected, Tweet.precount(:notifications).map { |t| t.notifications.count })
