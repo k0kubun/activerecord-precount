@@ -28,6 +28,7 @@ require "active_support/lazy_load_hooks"
 #       * collection_proxy_extension: Fallback to eager-loaded values when foo.count is called
 #
 ActiveSupport.on_load(:active_record) do
+  require "active_record/precount/autosave_association_extension"
   require "active_record/precount/base_extension"
   require "active_record/precount/collection_proxy_extension"
   require "active_record/precount/has_many_extension"
