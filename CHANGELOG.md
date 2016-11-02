@@ -1,25 +1,55 @@
 # Change Log
 
-## [v0.6.1](https://github.com/k0kubun/activerecord-precount/tree/v0.6.1) (2016-06-02)
+## [v0.6.2](https://github.com/k0kubun/activerecord-precount/tree/v0.6.2) (2016-11-02)
+[Full Changelog](https://github.com/k0kubun/activerecord-precount/compare/v0.6.1...v0.6.2)
+
+**Closed issues:**
+
+- NoMethodError: undefined method `destroyed?' on saving instance  [\#19](https://github.com/k0kubun/activerecord-precount/issues/19)
+- Support association's :class\_name option set to a constant [\#18](https://github.com/k0kubun/activerecord-precount/issues/18)
+
+**Merged pull requests:**
+
+- Add patch for ActiveRecord::AutosaveAssociation [\#20](https://github.com/k0kubun/activerecord-precount/pull/20) ([takashi](https://github.com/takashi))
+
+## [v0.6.1](https://github.com/k0kubun/activerecord-precount/tree/v0.6.1) (2016-06-04)
 [Full Changelog](https://github.com/k0kubun/activerecord-precount/compare/v0.6.0...v0.6.1)
 
-- Support polymorphic association for `precount` [\#17](https://github.com/k0kubun/activerecord-precount/pull/17)
+**Closed issues:**
+
+- Count method performance issue [\#9](https://github.com/k0kubun/activerecord-precount/issues/9)
+- Vendor ActiveRecord tests [\#2](https://github.com/k0kubun/activerecord-precount/issues/2)
+
+**Merged pull requests:**
+
+- Support polymorphic precount [\#17](https://github.com/k0kubun/activerecord-precount/pull/17) ([k0kubun](https://github.com/k0kubun))
+- Refactoring [\#16](https://github.com/k0kubun/activerecord-precount/pull/16) ([k0kubun](https://github.com/k0kubun))
 
 ## [v0.6.0](https://github.com/k0kubun/activerecord-precount/tree/v0.6.0) (2016-06-02)
 [Full Changelog](https://github.com/k0kubun/activerecord-precount/compare/v0.5.1...v0.6.0)
 
-- Support Rails 5.0 [\#14](https://github.com/k0kubun/activerecord-precount/pull/14) ([k0kubun](https://github.com/k0kubun))
-  - Drop Rails 4.1 support
+**Closed issues:**
+
+- Rails 5 support [\#13](https://github.com/k0kubun/activerecord-precount/issues/13)
+
+**Merged pull requests:**
+
+- Rails 5 [\#14](https://github.com/k0kubun/activerecord-precount/pull/14) ([k0kubun](https://github.com/k0kubun))
+- Support Ruby 2.3.0 [\#12](https://github.com/k0kubun/activerecord-precount/pull/12) ([k0kubun](https://github.com/k0kubun))
 
 ## [v0.5.1](https://github.com/k0kubun/activerecord-precount/tree/v0.5.1) (2015-09-09)
 [Full Changelog](https://github.com/k0kubun/activerecord-precount/compare/v0.5.0...v0.5.1)
+
+**Merged pull requests:**
 
 - Support an association with a scope [\#10](https://github.com/k0kubun/activerecord-precount/pull/10) ([tkawa](https://github.com/tkawa))
 
 ## [v0.5.0](https://github.com/k0kubun/activerecord-precount/tree/v0.5.0) (2015-02-01)
 [Full Changelog](https://github.com/k0kubun/activerecord-precount/compare/v0.4.3...v0.5.0)
 
-- Add `eager_count` method for eager loading by JOIN
+**Closed issues:**
+
+- Is it possible to eager\_load count\_loader association? [\#1](https://github.com/k0kubun/activerecord-precount/issues/1)
 
 ## [v0.4.3](https://github.com/k0kubun/activerecord-precount/tree/v0.4.3) (2015-01-31)
 [Full Changelog](https://github.com/k0kubun/activerecord-precount/compare/v0.4.2...v0.4.3)
