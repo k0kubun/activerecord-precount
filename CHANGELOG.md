@@ -1,5 +1,12 @@
 # Change Log
 
+## [v0.6.3](https://github.com/k0kubun/activerecord-precount/tree/v0.6.3) (2017-02-21)
+[Full Changelog](https://github.com/k0kubun/activerecord-precount/compare/v0.6.2...v0.6.3)
+
+**Merged pull requests:**
+
+- Fix invalid count query with ordered association [\#23](https://github.com/k0kubun/activerecord-precount/pull/23) ([yujinakayama](https://github.com/yujinakayama))
+
 ## [v0.6.2](https://github.com/k0kubun/activerecord-precount/tree/v0.6.2) (2016-11-02)
 [Full Changelog](https://github.com/k0kubun/activerecord-precount/compare/v0.6.1...v0.6.2)
 
