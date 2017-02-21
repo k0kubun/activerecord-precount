@@ -50,6 +50,15 @@ class PrecountTest < ActiveRecord::CountLoader::TestCase
     assert_equal(expected, Tweet.precount(:my_favs).map(&:my_favs_count))
   end
 
+  def test_precount_has_many_with_ordered_association_conforms_to_mysql_only_full_group_by
+    with_mysql_sql_mode('ONLY_FULL_GROUP_BY') do
+      expected = Tweet.all.map { |t| t.ordered_favorites.count }
+      assert_equal(expected, Tweet.all.map(&:ordered_favorites_count))
+      assert_equal(expected, Tweet.precount(:ordered_favorites).map { |t| t.ordered_favorites.count })
+      assert_equal(expected, Tweet.precount(:ordered_favorites).map(&:ordered_favorites_count))
+    end
+  end
+
   def test_polymorphic_precount
     expected = Tweet.all.map { |t| t.notifications.count }
     assert_equal(expected, Tweet.precount(:notifications).map(&:notifications_count))

@@ -46,6 +46,23 @@ module ActiveRecord::CountLoader
       options.reverse_merge! ignore_none: true
       assert_queries(0, options, &block)
     end
+
+    def with_mysql_sql_mode(sql_mode)
+      connection = ActiveRecord::Base.connection
+
+      if connection.adapter_name == 'Mysql2'
+        original_sql_mode = connection.execute('SELECT @@SESSION.sql_mode').first.first
+        connection.execute("SET @@SESSION.sql_mode = '#{original_sql_mode},#{sql_mode}'")
+
+        begin
+          yield
+        ensure
+          connection.execute("SET @@SESSION.sql_mode = '#{original_sql_mode}'")
+        end
+      else
+        yield
+      end
+    end
   end
 
   class SQLCounter
