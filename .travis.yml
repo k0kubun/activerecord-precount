@@ -10,28 +10,28 @@ matrix:
     - rvm: 2.1.10
       env: TASK=test ARCONN=mysql2
       gemfile: ci/Gemfile.activerecord-4.2.x
-    - rvm: 2.2.6
+    - rvm: 2.2.7
       env: TASK=test ARCONN=mysql2
       gemfile: ci/Gemfile.activerecord-5.1.x
-    - rvm: 2.3.3
+    - rvm: 2.3.4
       env: TASK=test ARCONN=mysql2
       gemfile: ci/Gemfile.activerecord-5.1.x
-    - rvm: 2.4.0
+    - rvm: 2.4.1
       env: TASK=test ARCONN=mysql2
       gemfile: ci/Gemfile.activerecord-4.2.x
-    - rvm: 2.4.0
+    - rvm: 2.4.1
       env: TASK=test ARCONN=mysql2
       gemfile: ci/Gemfile.activerecord-5.0.x
-    - rvm: 2.4.0
+    - rvm: 2.4.1
       env: TASK=test ARCONN=sqlite3
       gemfile: ci/Gemfile.activerecord-5.1.x
-    - rvm: 2.4.0
+    - rvm: 2.4.1
       env: TASK=test ARCONN=mysql2
       gemfile: ci/Gemfile.activerecord-5.1.x
-    - rvm: 2.4.0
+    - rvm: 2.4.1
       env: TASK=test ARCONN=postgresql
       gemfile: ci/Gemfile.activerecord-5.1.x
-    - rvm: 2.4.0
+    - rvm: 2.4.1
       env: TASK=benchmark ARCONN=mysql2
       gemfile: ci/Gemfile.activerecord-5.1.x
   allow_failures:
