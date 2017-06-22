@@ -23,7 +23,7 @@ module ActiveRecord
           end
         end
 
-        def query_scope(ids)
+        def records_for(ids)
           key = model.reflections[reflection.name.to_s.sub(/_count\z/, '')].foreign_key
           scope.reorder(nil).where(key => ids).group(key).count(key)
         end
