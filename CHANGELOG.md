@@ -1,5 +1,18 @@
 # Change Log
 
+## [v0.7.0.beta1](https://github.com/k0kubun/activerecord-precount/tree/v0.7.0.beta1) (2017-06-27)
+[Full Changelog](https://github.com/k0kubun/activerecord-precount/compare/v0.6.3...v0.7.0.beta1)
+
+**Closed issues:**
+
+- Rails 5.1 ActionView::Template::Error: undefined method `map' for nil:NilClass [\#24](https://github.com/k0kubun/activerecord-precount/issues/24)
+- fatal \(exception reentered\): [\#22](https://github.com/k0kubun/activerecord-precount/issues/22)
+
+**Merged pull requests:**
+
+- Use the latest patch version for Rails v5.1.x on ci [\#26](https://github.com/k0kubun/activerecord-precount/pull/26) ([kenju](https://github.com/kenju))
+- s/query\_scope/records\_for for preloader\_extension.rb [\#25](https://github.com/k0kubun/activerecord-precount/pull/25) ([kenju](https://github.com/kenju))
+
 ## [v0.6.3](https://github.com/k0kubun/activerecord-precount/tree/v0.6.3) (2017-02-21)
 [Full Changelog](https://github.com/k0kubun/activerecord-precount/compare/v0.6.2...v0.6.3)
 
