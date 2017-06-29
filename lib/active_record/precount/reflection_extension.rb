@@ -5,7 +5,7 @@ module ActiveRecord
       # When this method is called, it will be N+1 query
       def load_target
         count_target = reflection.name.to_s.sub(/_count\z/, '').to_sym
-        @target = owner.association(count_target).count
+        @target = owner.association(count_target).size
 
         loaded! unless loaded?
         target
