@@ -3,6 +3,17 @@
 N+1 count query killer for ActiveRecord. Yet another counter\_cache alternative.  
 ActiveRecord::Precount allows you to cache count of associated records by eager loading.
 
+## Project Status
+
+**Softly deprecated in favor of [activerecord-precounter](https://github.com/k0kubun/activerecord-precounter).**
+
+Major features of activerecord-precount are working with ActiveRecord 5.1,
+but it has no active maintainer (it's welcome that you become the one)
+and its design is fragile to ActiveRecord internal changes.
+
+[activerecord-precounter](https://github.com/k0kubun/activerecord-precounter) is strong for ActiveRecord internal changes
+and now it's recommended to use it instead.
+
 ## Synopsis
 
 ### N+1 count query
