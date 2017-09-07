@@ -102,7 +102,7 @@ gem 'activerecord-precount'
 `Foo.precount(:bars)` or `Foo.eager_count(:bars)` automatically defines `bars_count` association for `Foo`.
 That enables you to preload the association and call `foo.bars_count`.
 
-You can manually define `bars_count` with follwoing code.
+You can manually define `bars_count` with following code.
 
 ```diff
  class Foo < ActiveRecord::Base
